@@ -1,14 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  banner,
-  honey,
-  nonVeg,
-  masala,
-  veg,
-  eggs,
-  fruit,
-  coffee
-} from "../assets";
+
 export const Home = () => {
   const categories = [
     { name: "honey", url: honey },
@@ -24,14 +15,14 @@ export const Home = () => {
     <>
       <section className="hero">
         <Link to="/store">
-          <img src={banner} alt="banner" />
+          <img src={`https://api-farmers-grocery.herokuapp.com/images/banner.jpg`} alt="banner" />
         </Link>
       </section>
       <div className="category-layout">
         {categories.map((item, idx) => (
           <Link to="/store" key={idx}>
             <figure className="category-card">
-              <img src={item.url} alt="category" />
+              <img src={`https://api-farmers-grocery.herokuapp.com/images/${item.url}.png`} alt="category" />
               <figcaption>{item.name}</figcaption>
             </figure>
           </Link>
