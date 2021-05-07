@@ -100,7 +100,7 @@ body {
   margin: var(--p-1);
 }
 @media all and (min-width: 600px) {
-  .side-nav nav{
+  .side-menu nav{
     display: block!important;
   }
   .product-layout .product {
