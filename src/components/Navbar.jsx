@@ -7,10 +7,8 @@ export const Navbar = () => {
   useEffect(() => {
     if (window.innerWidth >= 600) {
       setMenu(true);
-    } else {
-      setMenu(false);
     }
-  }, []);
+  }, [menu]);
   return (
     <>
       <header className="side-menu">
@@ -24,7 +22,7 @@ export const Navbar = () => {
           </span>
           <input type="search" placeholder="Search Products, Brands & More" />
         </div>
-        <nav className={menu ? "d-block" : "d-none"}>
+        <nav className={menu ? null : "d-none"}>
           <ul>
             <li>
               <NavLink
