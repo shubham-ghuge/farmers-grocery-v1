@@ -56,8 +56,7 @@ export const Cart = () => {
                 }) => (
                   <div className="product-card" key={_id}>
                     <div
-                      className="product-details"
-                      style={{ cursor: "pointer" }}
+                      className="product-details cursor-pointer"
                       onClick={() => navigation(`/product/${_id}`)}
                     >
                       <img className="product-img" src={imgUrl} alt="product" />

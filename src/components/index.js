@@ -1,4 +1,4 @@
-export { GroceryCard } from "./card";
+export { GroceryCard } from "./GroceryCard";
 export { Navbar } from "./Navbar";
 export { SnackBar } from "./SnackBar";
 export { Jumbotron } from "./Jumbotron";

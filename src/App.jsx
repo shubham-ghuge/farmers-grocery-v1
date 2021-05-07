@@ -1,15 +1,10 @@
 import "./styles.css";
-import { Navbar, Loader } from "./components";
-import { Route, Routes } from "react-router-dom";
-import { Cart } from "./pages/Cart";
-import { Bag } from "./pages/Bag";
-import { Product } from "./pages/Product";
-import { NotFound } from "./pages/NotFound";
-import { Home } from "./pages/Home";
-import { ProductsListing } from "./pages/ProductsListing";
-import { useState, useEffect } from "react";
 import axios from "axios";
+import { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import { useDataProvider } from "./contexts/useDataProvider";
+import { Navbar, Loader } from "./components";
+import { Bag, Product, NotFound, Home, Cart, ProductsListing } from "./pages";
 
 export default function App() {
   const [loader, setLoader] = useState(false);
