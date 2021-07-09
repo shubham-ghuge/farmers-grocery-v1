@@ -1,3 +1,4 @@
+import React from "react";
 import { MdWhatshot } from "react-icons/md";
 import {
   FiHome,
@@ -8,6 +9,7 @@ import {
 } from "react-icons/fi";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDataProvider } from "../contexts/useDataProvider";
+
 export const Product = () => {
   const { productId } = useParams();
   let navigation = useNavigate();

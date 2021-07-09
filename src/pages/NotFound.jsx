@@ -1,3 +1,4 @@
+import React from "react";
 import { FcShop } from "react-icons/fc";
 export const NotFound = () => {
   return (

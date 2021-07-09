@@ -1,6 +1,6 @@
 import "./styles.css";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useDataProvider } from "./contexts/useDataProvider";
 import { Navbar, Loader } from "./components";
@@ -30,12 +30,12 @@ export default function App() {
       <Navbar />
       {loader && <Loader />}
       <Routes>
-        <Route path={"/"} element={<Home />} />
-        <Route path={"/cart"} element={<Cart />} />
-        <Route path={"/bag"} element={<Bag />} />
-        <Route path={"/store"} element={<ProductsListing />} />
-        <Route path={"/product/:productId"} element={<Product />} />
-        <Route path={"*"} element={<NotFound />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/bag" element={<Bag />} />
+        <Route path="/store" element={<ProductsListing />} />
+        <Route path="/product/:productId" element={<Product />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

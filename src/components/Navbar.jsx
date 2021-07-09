@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FiSearch, FiShoppingCart, FiShoppingBag } from "react-icons/fi";
 import logo from "../assets/logo-trans.png";

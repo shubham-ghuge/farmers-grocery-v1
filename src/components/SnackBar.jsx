@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 export const SnackBar = ({ text }) => {
   useEffect(() => {
     const timerId = setTimeout(() => {

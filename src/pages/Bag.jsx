@@ -1,9 +1,9 @@
+import React from "react";
 import { BiTrash, BiCart } from "react-icons/bi";
 import { useDataProvider } from "../contexts/useDataProvider";
 import { useNavigate } from "react-router-dom";
 import { Jumbotron } from "../components";
-import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
+
 export const Bag = () => {
   const navigation = useNavigate();
   const { bag, products, dispatch } = useDataProvider();
@@ -24,7 +24,7 @@ export const Bag = () => {
             price,
             discount,
             isInCart,
-            isInBag
+            isInBag,
           }) => (
             <figure className="wishlist-card" key={_id}>
               <img src={imgUrl} alt="product" />
@@ -42,9 +42,8 @@ export const Bag = () => {
                     onClick={() => {
                       dispatch({
                         type: "REMOVE_FROM_BAG",
-                        payload: { _id: _id, status: isInBag }
+                        payload: { _id: _id, status: isInBag },
                       });
-                      toast(`${name} is removed from bag`);
                     }}
                   >
                     <span className="icon">
@@ -62,7 +61,7 @@ export const Bag = () => {
                         ? navigation("/cart")
                         : dispatch({
                             type: "ADD_TO_CART",
-                            payload: { _id: _id, status: isInCart }
+                            payload: { _id: _id, status: isInCart },
                           })
                     }
                   >
@@ -77,7 +76,6 @@ export const Bag = () => {
           )
         )
       )}
-      <ToastContainer />
     </div>
   );
 };

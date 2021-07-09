@@ -1,9 +1,8 @@
+import React from "react";
 import { useDataProvider } from "../contexts/useDataProvider";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Jumbotron } from "../components";
-import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
 
 export const Cart = () => {
   const [coupen, setCoupen] = useState(false);
@@ -87,9 +86,6 @@ export const Cart = () => {
                               pqty: quantity - 1
                             }
                           });
-                          if (quantity === 1) {
-                            toast(`${name} is removed from cart`);
-                          }
                         }}
                       >
                         -
@@ -137,7 +133,6 @@ export const Cart = () => {
         ) : (
           <Jumbotron text="Cart" />
         )}
-        <ToastContainer />
       </div>
     </>
   );

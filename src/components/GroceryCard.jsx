@@ -1,3 +1,4 @@
+import React from "react";
 import { FiShoppingBag } from "react-icons/fi";
 import { useDataProvider } from "../contexts/useDataProvider";
 import { useNavigate, Link } from "react-router-dom";
