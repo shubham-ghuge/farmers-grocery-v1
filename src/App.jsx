@@ -3,8 +3,18 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useDataProvider } from "./contexts/useDataProvider";
-import { Navbar, Loader } from "./components";
-import { Bag, Product, NotFound, Home, Cart, ProductsListing } from "./pages";
+import { Navbar, Loader, Login, Register, PrivateRoute } from "./components";
+import {
+  Bag,
+  Product,
+  NotFound,
+  Home,
+  Cart,
+  ProductsListing,
+  Auth,
+  Profile,
+  Checkout,
+} from "./pages";
 
 export default function App() {
   const [loader, setLoader] = useState(false);
@@ -31,11 +41,17 @@ export default function App() {
       {loader && <Loader />}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/bag" element={<Bag />} />
+        <Route path="/auth" element={<Auth />}>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
         <Route path="/store" element={<ProductsListing />} />
         <Route path="/product/:productId" element={<Product />} />
         <Route path="*" element={<NotFound />} />
+        <PrivateRoute path="/bag" element={<Bag />} />
+        <PrivateRoute path="/cart" element={<Cart />} />
+        <PrivateRoute path="/profile" element={<Profile />} />
+        <PrivateRoute path="/" element={<Checkout />} />
       </Routes>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FiSearch, FiShoppingCart, FiShoppingBag } from "react-icons/fi";
+import { FaUserCircle } from "react-icons/fa";
 import logo from "../assets/logo-trans.png";
 export const Navbar = () => {
   const [menu, setMenu] = useState(false);
@@ -46,6 +47,18 @@ export const Navbar = () => {
                   <FiShoppingBag />
                 </span>
                 bag
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/auth"
+                activeClassName="nav-link-active"
+                className="nav-link"
+              >
+                <span className="icon">
+                  <FaUserCircle />
+                </span>
+                Account
               </NavLink>
             </li>
           </ul>
