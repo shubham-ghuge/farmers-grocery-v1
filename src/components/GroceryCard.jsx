@@ -2,7 +2,7 @@ import React from "react";
 import { FiShoppingBag } from "react-icons/fi";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addInCart } from "../features/productSlice";
+import { addInBag, addInCart, removeFromBag } from "../features/productSlice";
 
 export function GroceryCard({ product }) {
   const { userLoginStatus } = useSelector((state) => state.auth);
@@ -29,11 +29,9 @@ export function GroceryCard({ product }) {
       <span
         className={product.isInBag ? "icon-active" : "icon"}
         onClick={() =>
-          userLoginStatus &&
-          dispatch({
-            type: "ADD_TO_BAG",
-            payload: { _id: product._id, status: product.isInBag },
-          })
+          userLoginStatus && product.isInBag
+            ? dispatch(removeFromBag(product._id))
+            : dispatch(addInBag(product._id))
         }
       >
         <FiShoppingBag />

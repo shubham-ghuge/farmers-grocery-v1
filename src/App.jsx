@@ -18,9 +18,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "./features/authSlice";
 import {
+  fetchBag,
   fetchCartData,
   fetchProducts,
-  fetchWishlistData,
 } from "./features/productSlice";
 
 export default function App() {
@@ -39,7 +39,7 @@ export default function App() {
     console.log(userLoginStatus);
     if (userLoginStatus) {
       dispatch(fetchCartData());
-      dispatch(fetchWishlistData());
+      dispatch(fetchBag());
     }
   }, [userLoginStatus]);
 

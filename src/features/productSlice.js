@@ -13,11 +13,6 @@ export const fetchCartData = createAsyncThunk('product/fetchCartData', async () 
     return data;
 })
 
-export const fetchWishlistData = createAsyncThunk('product/fetchWishlistData', async () => {
-    const { data } = await axios.get(`${API_URL}/wishlist`);
-    return data;
-})
-
 export const addInCart = createAsyncThunk("product/addInCart", async (productDetails) => {
     const { data } = await axios.post(`${API_URL}/cart`, productDetails)
     return data
@@ -32,6 +27,21 @@ export const updateInCart = createAsyncThunk('product/updateInCart', async (prod
     const { data } = await axios.post(`${API_URL}/cart`, productDetails)
     return data
 })
+
+export const fetchBag = createAsyncThunk('product/fetchBag', async (productId) => {
+    const { data } = await axios.get(`${API_URL}/wishlist`)
+    return data;
+})
+
+export const addInBag = createAsyncThunk('product/addInBag', async (productId) => {
+    const { data } = await axios.post(`${API_URL}/wishlist/${productId}`)
+    return data;
+})
+
+export const removeFromBag = createAsyncThunk('product/removeFromBag', async (productId) => {
+    const { data } = await axios.delete(`${API_URL}/wishlist/${productId}`)
+    return data;
+});
 
 const initialState = {
     products: [],
@@ -77,10 +87,7 @@ const productSlice = createSlice({
         [fetchCartData.rejected]: (state) => {
             state.message = "error while fetching cart products,check your internet connection";
         },
-        [fetchWishlistData.fulfilled]: (state, action) => {
-            state.bag = action.payload.response;
-        },
-        [fetchWishlistData.rejected]: (state) => {
+        [fetchBag.rejected]: (state) => {
             state.message = "error while fetching cart products,check your internet connection";
         },
         [addInCart.fulfilled]: (state, action) => {
@@ -124,6 +131,42 @@ const productSlice = createSlice({
                 return i
             })
         },
+        [fetchBag.fulfilled]: (state, action) => {
+            const { products } = action.payload.response;
+            state.bag = products;
+            state.products = state.products.map(product => {
+                if (products.includes(product._id)) {
+                    product['isInBag'] = true;
+                    return product;
+                }
+                return product;
+            });
+        },
+        [addInBag.fulfilled]: (state, action) => {
+            const { message, productId } = action.payload;
+            state.message = message;
+            state.bag.push(productId)
+            state.products = state.products.map(i => {
+                if (i._id === productId) {
+                    i['isInBag'] = true;
+                    return i
+                }
+                return i
+            })
+        },
+        [removeFromBag.fulfilled]: (state, action) => {
+            const { message, productId } = action.payload;
+            state.message = message;
+            state.bag = state.bag.filter(i => i !== productId)
+            state.products = state.products.map(i => {
+                if (i._id === productId) {
+                    i['isInBag'] = false;
+                    return i
+                }
+                return i
+            })
+        },
+
     }
 });
 
