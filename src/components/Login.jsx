@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../features/authSlice";
+import { loginUser, setMessage } from "../features/authSlice";
+import { Alert } from "./Alert";
 
 function Login() {
   const [userDetails, setUserDetails] = useState({ email: "", password: "" });
@@ -24,31 +25,51 @@ function Login() {
 
   return (
     <div className="flex-column h-70 jc-center ai-center">
-      {message && <h3>{message}</h3>}
+      {message && (
+        <Alert message={message} onClose={() => dispatch(setMessage())} />
+      )}
+      <h2 className="fsz-3">Login</h2>
       <form
-        className="flex-column my-4 ai-center"
+        className="flex-column auth-form my-4 ai-center"
         onSubmit={(e) => loginFormHandler(e)}
       >
-        <input
-          className="mb-4"
-          type="email"
-          placeholder="john@farmersgrocery.com"
-          value={userDetails.email}
-          onChange={(e) =>
-            setUserDetails((curr) => ({ ...curr, email: e.target.value }))
-          }
-        />
-        <input
-          className="mb-4"
-          type="password"
-          placeholder="*******"
-          value={userDetails.password}
-          onChange={(e) =>
-            setUserDetails((curr) => ({ ...curr, password: e.target.value }))
-          }
-        />
+        <label className="fsz-1 flex-column fw-500">
+          <span className="mb-2">Email</span>
+          <input
+            type="email"
+            placeholder="john@farmersgrocery.com"
+            value={userDetails.email}
+            onChange={(e) =>
+              setUserDetails((curr) => ({ ...curr, email: e.target.value }))
+            }
+            required
+          />
+        </label>
+        <label className="fsz-1 flex-column fw-500">
+          <span className="mb-2">Password</span>
+          <input
+            type="password"
+            placeholder="*******"
+            value={userDetails.password}
+            onChange={(e) =>
+              setUserDetails((curr) => ({ ...curr, password: e.target.value }))
+            }
+            required
+          />
+        </label>
         <button className="btn-primary">
           {loading ? "loggin in" : "login"}
+        </button>
+        <button
+          className="btn-c-primary"
+          onClick={() =>
+            setUserDetails({
+              email: "shubhamghuge@gmail.com",
+              password: "aaaaaa",
+            })
+          }
+        >
+          Demo Login
         </button>
       </form>
       <p>

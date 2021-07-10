@@ -36,7 +36,6 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    console.log(userLoginStatus);
     if (userLoginStatus) {
       dispatch(fetchCartData());
       dispatch(fetchBag());
@@ -50,6 +49,7 @@ export default function App() {
   return (
     <div className="App">
       <Navbar />
+      <div className="nav-adjust"></div>
       {loading && <Loader />}
       <Routes>
         <Route path="/" element={<Home />} />

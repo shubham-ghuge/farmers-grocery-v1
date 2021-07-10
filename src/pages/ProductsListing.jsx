@@ -1,15 +1,19 @@
 import React from "react";
-import { GroceryCard } from "../components";
-import { useSelector } from "react-redux";
+import { Alert, GroceryCard } from "../components";
+import { useDispatch, useSelector } from "react-redux";
+import { setMessage } from "../features/productSlice";
 
 export const ProductsListing = () => {
-  const { products } = useSelector((state) => state.product);
-  console.log(products);
+  const { products, message } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
   return (
     <div
       className={"d-flex nav-adjust"}
       style={{ flexWrap: "wrap", justifyContent: "center" }}
     >
+      {message && (
+        <Alert message={message} onClose={() => dispatch(setMessage(null))} />
+      )}
       {products &&
         products.map((item) => <GroceryCard product={item} key={item._id} />)}
     </div>

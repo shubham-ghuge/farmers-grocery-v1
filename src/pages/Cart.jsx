@@ -1,19 +1,22 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Jumbotron } from "../components";
+import { Jumbotron, Loader } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCartData,
   removeFromCart,
   updateInCart,
 } from "../features/productSlice";
+import { placeOrder } from "../features/orderSlice";
 
 export const Cart = () => {
   const [coupen, setCoupen] = useState(false);
   const [smloading, setSmLoading] = useState(false);
   const dispatch = useDispatch();
   const { products, cart } = useSelector((state) => state.product);
+  const { loading, message } = useSelector((state) => state.order);
+
   useEffect(() => {
     dispatch(fetchCartData());
   }, []);
@@ -27,12 +30,19 @@ export const Cart = () => {
   function updateQuantityHandler(quantity, id) {
     setSmLoading(true);
     if (quantity === 0) {
-      console.log(quantity, id);
       dispatch(removeFromCart(id));
       setTimeout(() => setSmLoading(false), 1000);
     }
     dispatch(updateInCart({ productDetails: { productId: id, quantity } }));
     setTimeout(() => setSmLoading(false), 1000);
+  }
+
+  function orderHandler() {
+    const productArray = cart.map(({ productId, quantity }) => ({
+      productId,
+      quantity,
+    }));
+    dispatch(placeOrder({ products: productArray }));
   }
 
   const cartTotal = () => {
@@ -58,7 +68,9 @@ export const Cart = () => {
   return (
     <>
       <div className="cart-layout nav-adjust">
-        {productsInCart.length ? (
+        {message ? (
+          <h3 className="fsz-4 mt-7 text-center">{message}</h3>
+        ) : productsInCart.length ? (
           <>
             <div className="cart">
               <div className="cart-heading">
@@ -139,7 +151,9 @@ export const Cart = () => {
                 <p className="muted">Total Payable</p>
                 <h2>₹ {coupen ? cartTotal() - 5 : cartTotal()}</h2>
               </div>
-              <button className="btn-success">Checkout</button>
+              <button className="btn-success" onClick={orderHandler}>
+                {loading ? <Loader /> : "checkout"}
+              </button>
             </div>
           </>
         ) : (

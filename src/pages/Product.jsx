@@ -26,7 +26,7 @@ export const Product = () => {
       ) : (
         <div>
           <button
-            className="btn-c-primary nav-adjust"
+            className="btn-c-primary"
             style={{ marginBottom: ".7rem", marginLeft: ".1rem" }}
             onClick={() => navigation("/store")}
           >

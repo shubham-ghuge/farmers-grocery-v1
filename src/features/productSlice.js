@@ -48,15 +48,18 @@ const initialState = {
     cart: [],
     bag: [],
     loading: false,
-    message: null
+    message: null,
 }
 
 const productSlice = createSlice({
     name: "product",
     initialState,
-    reducer: {
+    reducers: {
         addProductInCart: (state, action) => {
             state.cart.push(action.payload)
+        },
+        setMessage: (state, action) => {
+            state.message = action.payload;
         }
     },
     extraReducers: {
@@ -170,5 +173,5 @@ const productSlice = createSlice({
     }
 });
 
-export const { addProductInCart } = productSlice.actions;
+export const { addProductInCart, setMessage } = productSlice.actions;
 export default productSlice.reducer;

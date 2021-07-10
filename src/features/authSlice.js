@@ -33,6 +33,9 @@ export const authSlice = createSlice({
             state.userLoginStatus = false;
             state.user = null;
             axios.defaults.headers.common["Authorization"] = null;
+        },
+        setMessage: (state) => {
+            state.message = null
         }
     },
     extraReducers: {
@@ -41,10 +44,10 @@ export const authSlice = createSlice({
         },
         [registerUser.fulfilled]: (state, action) => {
             state.message = action.payload.message;
+            console.log(action.payload.message)
             state.loading = false;
         },
-        [registerUser.rejected]: (state, action) => {
-            console.log(action);
+        [registerUser.rejected]: (state) => {
             state.message = "something went wrong, Try again later!";
             state.loading = false;
         },
@@ -62,13 +65,12 @@ export const authSlice = createSlice({
             state.message = message;
             state.loading = false;
         },
-        [loginUser.rejected]: (state, action) => {
-            console.log(action);
+        [loginUser.rejected]: (state) => {
             state.message = "This Didn't work,try signing in!";
             state.loading = false;
         },
     }
 });
 
-export const { setToken } = authSlice.actions;
+export const { setToken, logout, setMessage } = authSlice.actions;
 export default authSlice.reducer;

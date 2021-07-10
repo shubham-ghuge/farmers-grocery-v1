@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FiSearch, FiShoppingCart, FiShoppingBag } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
 import logo from "../assets/logo-trans.png";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../features/authSlice";
 export const Navbar = () => {
   const [menu, setMenu] = useState(false);
+  let navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { cart } = useSelector((state) => state.product);
   useEffect(() => {
     if (window.innerWidth >= 600) {
       setMenu(true);
@@ -35,6 +41,7 @@ export const Navbar = () => {
                   <FiShoppingCart />
                 </span>
                 cart
+                <div className="badge">{cart.length}</div>
               </NavLink>
             </li>
             <li>
@@ -50,16 +57,16 @@ export const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/auth"
-                activeClassName="nav-link-active"
+              <button
+                style={{ border: 0, color: "var(--c-success-100" }}
                 className="nav-link"
+                onClick={() => (user ? dispatch(logout()) : navigate("/auth"))}
               >
                 <span className="icon">
                   <FaUserCircle />
                 </span>
-                Account
-              </NavLink>
+                {user ? "logout" : "log in"}
+              </button>
             </li>
           </ul>
         </nav>
