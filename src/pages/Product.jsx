@@ -5,24 +5,19 @@ import {
   FiClock,
   FiTruck,
   FiCheckCircle,
-  FiShoppingCart
+  FiShoppingCart,
 } from "react-icons/fi";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDataProvider } from "../contexts/useDataProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { addInCart } from "../features/productSlice";
 
 export const Product = () => {
   const { productId } = useParams();
+  const dispatch = useDispatch();
   let navigation = useNavigate();
-  const { products, dispatch } = useDataProvider();
-  const {
-    _id,
-    name,
-    description,
-    price,
-    imgUrl,
-    discount,
-    isInCart
-  } = products.find((item) => item._id === productId);
+  const { products } = useSelector((state) => state.product);
+  const { _id, name, description, price, imgUrl, discount, isInCart } =
+    products.find((item) => item._id === productId);
 
   return (
     <>
@@ -65,10 +60,11 @@ export const Product = () => {
                 onClick={() =>
                   isInCart
                     ? navigation("/cart")
-                    : dispatch({
-                        type: "ADD_TO_CART",
-                        payload: { _id: _id, status: isInCart }
-                      })
+                    : dispatch(
+                        addInCart({
+                          productDetails: { productId: _id, quantity: 1 },
+                        })
+                      )
                 }
               >
                 <span className="icon">
@@ -90,7 +86,7 @@ export const Product = () => {
                     style={{
                       fontSize: "1.4rem",
                       display: "block",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     <FiHome />
@@ -105,7 +101,7 @@ export const Product = () => {
                     style={{
                       fontSize: "1.4rem",
                       display: "block",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     <FiClock />
@@ -120,7 +116,7 @@ export const Product = () => {
                     style={{
                       fontSize: "1.4rem",
                       display: "block",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     <FiTruck />
@@ -135,7 +131,7 @@ export const Product = () => {
                     style={{
                       fontSize: "1.4rem",
                       display: "block",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     <FiCheckCircle />

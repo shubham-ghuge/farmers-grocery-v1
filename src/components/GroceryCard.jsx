@@ -1,21 +1,24 @@
 import React from "react";
 import { FiShoppingBag } from "react-icons/fi";
-import { useDataProvider } from "../contexts/useDataProvider";
 import { useNavigate, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addInCart } from "../features/productSlice";
 
 export function GroceryCard({ product }) {
-  const { dispatch } = useDataProvider();
+  const { userLoginStatus } = useSelector((state) => state.auth);
+  const { cartLoading } = useSelector((state) => state.product);
   let navigation = useNavigate();
+  const dispatch = useDispatch();
   const addToCartHandler = (productId, productStatus) => {
-    if (productStatus === false) {
-      return dispatch({
-        type: "ADD_TO_CART",
-        payload: { _id: productId, status: productStatus }
-      });
+    if (!productStatus) {
+      return dispatch(
+        addInCart({ productDetails: { productId, quantity: 1 } })
+      );
     } else {
       return navigation("/cart");
     }
   };
+
   return (
     <div className={"grocery-card"}>
       <Link to={`/product/${product._id}`}>
@@ -26,9 +29,10 @@ export function GroceryCard({ product }) {
       <span
         className={product.isInBag ? "icon-active" : "icon"}
         onClick={() =>
+          userLoginStatus &&
           dispatch({
             type: "ADD_TO_BAG",
-            payload: { _id: product._id, status: product.isInBag }
+            payload: { _id: product._id, status: product.isInBag },
           })
         }
       >
@@ -54,8 +58,13 @@ export function GroceryCard({ product }) {
       <button
         className={product.isInCart ? "card-cta-active" : "card-cta"}
         onClick={() => addToCartHandler(product._id, product.isInCart)}
+        disabled={!userLoginStatus}
       >
-        {product.isInCart ? "Go to Cart" : "Add To Cart"}
+        {cartLoading
+          ? "loading..."
+          : product.isInCart
+          ? "Go to Cart"
+          : "Add To Cart"}
       </button>
     </div>
   );

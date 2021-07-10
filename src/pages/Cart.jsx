@@ -1,16 +1,39 @@
-import React from "react";
-import { useDataProvider } from "../contexts/useDataProvider";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Jumbotron } from "../components";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchCartData,
+  removeFromCart,
+  updateInCart,
+} from "../features/productSlice";
 
 export const Cart = () => {
   const [coupen, setCoupen] = useState(false);
-  const { products, cart, dispatch } = useDataProvider();
+  const [smloading, setSmLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { products, cart } = useSelector((state) => state.product);
+  useEffect(() => {
+    dispatch(fetchCartData());
+  }, []);
+
   let navigation = useNavigate();
+
   const productsInCart = products.filter((item) => {
-    return cart.find((i) => item._id === i._id);
+    return cart.find((i) => item._id === i.productId);
   });
+
+  function updateQuantityHandler(quantity, id) {
+    setSmLoading(true);
+    if (quantity === 0) {
+      console.log(quantity, id);
+      dispatch(removeFromCart(id));
+      setTimeout(() => setSmLoading(false), 1000);
+    }
+    dispatch(updateInCart({ productDetails: { productId: id, quantity } }));
+    setTimeout(() => setSmLoading(false), 1000);
+  }
 
   const cartTotal = () => {
     return productsInCart
@@ -51,7 +74,7 @@ export const Cart = () => {
                   description,
                   price,
                   discount,
-                  quantity
+                  quantity,
                 }) => (
                   <div className="product-card" key={_id}>
                     <div
@@ -78,27 +101,16 @@ export const Cart = () => {
                     <div className="quantity">
                       <button
                         className="btn-outline-danger"
-                        onClick={() => {
-                          dispatch({
-                            type: "DECREMENT",
-                            payload: {
-                              pid: _id,
-                              pqty: quantity - 1
-                            }
-                          });
-                        }}
+                        onClick={() => updateQuantityHandler(quantity - 1, _id)}
+                        disabled={smloading}
                       >
                         -
                       </button>
-                      <span>{quantity}</span>
+                      <span>{smloading ? "..." : quantity}</span>
                       <button
                         className="btn-outline-primary"
-                        onClick={() =>
-                          dispatch({
-                            type: "INCREMENT",
-                            payload: { pid: _id, pqty: quantity + 1 }
-                          })
-                        }
+                        onClick={() => updateQuantityHandler(quantity + 1, _id)}
+                        disabled={smloading}
                       >
                         +
                       </button>

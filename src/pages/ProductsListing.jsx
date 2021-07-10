@@ -1,9 +1,10 @@
 import React from "react";
-import { useDataProvider } from "../contexts/useDataProvider";
 import { GroceryCard } from "../components";
+import { useSelector } from "react-redux";
 
 export const ProductsListing = () => {
-  const { products } = useDataProvider();
+  const { products } = useSelector((state) => state.product);
+  console.log(products);
   return (
     <div
       className={"d-flex nav-adjust"}

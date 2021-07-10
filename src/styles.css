@@ -4,6 +4,9 @@ body {
 .cursor-pointer{
   cursor: pointer;
 }
+.nav-adjust{
+  margin-top: 90px;
+}
 .loader {
   position: absolute;
   top: 0;
