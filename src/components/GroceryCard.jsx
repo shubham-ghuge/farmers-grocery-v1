@@ -11,11 +11,9 @@ export function GroceryCard({ product }) {
   const [showAlert, setShowAlert] = useState(false);
   let navigation = useNavigate();
   const dispatch = useDispatch();
-  const addToCartHandler = (productId, productStatus) => {
+  const addToCartHandler = (productId, productStatus, farmerId) => {
     if (!productStatus) {
-      return dispatch(
-        addInCart({ productDetails: { productId, quantity: 1 } })
-      );
+      return dispatch(addInCart({ productId, quantity: 1, farmerId }));
     } else {
       return navigation("/cart");
     }
@@ -60,7 +58,11 @@ export function GroceryCard({ product }) {
           className={product.isInCart ? "card-cta-active" : "card-cta"}
           onClick={() =>
             userLoginStatus
-              ? addToCartHandler(product._id, product.isInCart)
+              ? addToCartHandler(
+                  product._id,
+                  product.isInCart,
+                  product.farmerId
+                )
               : setShowAlert(true)
           }
         >

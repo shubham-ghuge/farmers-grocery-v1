@@ -1,48 +1,34 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Jumbotron, Loader } from "../components";
+import { Checkout, Jumbotron } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCartData,
   removeFromCart,
   updateInCart,
 } from "../features/productSlice";
-import { placeOrder } from "../features/orderSlice";
 
 export const Cart = () => {
   const [coupen, setCoupen] = useState(false);
-  const [smloading, setSmLoading] = useState(false);
+  const [showCheckout, setCheckout] = useState(false);
   const dispatch = useDispatch();
   const { products, cart } = useSelector((state) => state.product);
-  const { loading, message } = useSelector((state) => state.order);
 
   useEffect(() => {
     dispatch(fetchCartData());
   }, []);
-
   let navigation = useNavigate();
 
   const productsInCart = products.filter((item) => {
     return cart.find((i) => item._id === i.productId);
   });
 
-  function updateQuantityHandler(quantity, id) {
-    setSmLoading(true);
+  function updateQuantityHandler(quantity, id, farmerId) {
     if (quantity === 0) {
       dispatch(removeFromCart(id));
-      setTimeout(() => setSmLoading(false), 1000);
     }
-    dispatch(updateInCart({ productDetails: { productId: id, quantity } }));
-    setTimeout(() => setSmLoading(false), 1000);
-  }
-
-  function orderHandler() {
-    const productArray = cart.map(({ productId, quantity }) => ({
-      productId,
-      quantity,
-    }));
-    dispatch(placeOrder({ products: productArray }));
+    dispatch(updateInCart({ productId: id, quantity, farmerId }));
   }
 
   const cartTotal = () => {
@@ -68,9 +54,7 @@ export const Cart = () => {
   return (
     <>
       <div className="cart-layout nav-adjust">
-        {message ? (
-          <h3 className="fsz-4 mt-7 text-center">{message}</h3>
-        ) : productsInCart.length ? (
+        {productsInCart.length ? (
           <>
             <div className="cart">
               <div className="cart-heading">
@@ -87,6 +71,7 @@ export const Cart = () => {
                   price,
                   discount,
                   quantity,
+                  farmerId,
                 }) => (
                   <div className="product-card" key={_id}>
                     <div
@@ -113,16 +98,18 @@ export const Cart = () => {
                     <div className="quantity">
                       <button
                         className="btn-outline-danger"
-                        onClick={() => updateQuantityHandler(quantity - 1, _id)}
-                        disabled={smloading}
+                        onClick={() =>
+                          updateQuantityHandler(quantity - 1, _id, farmerId)
+                        }
                       >
                         -
                       </button>
-                      <span>{smloading ? "..." : quantity}</span>
+                      <span>{quantity}</span>
                       <button
                         className="btn-outline-primary"
-                        onClick={() => updateQuantityHandler(quantity + 1, _id)}
-                        disabled={smloading}
+                        onClick={() =>
+                          updateQuantityHandler(quantity + 1, _id, farmerId)
+                        }
                       >
                         +
                       </button>
@@ -132,28 +119,36 @@ export const Cart = () => {
                 )
               )}
             </div>
-
             <div className="checkout">
-              <h3 className="muted">
-                You are saving <span>₹ {totalSaved()}</span>
-              </h3>
-              <button
-                className="coupen"
-                onClick={() => setCoupen((prev) => (prev = !prev))}
-              >
-                {coupen ? "applied!" : "Apply coupen!"}
-              </button>
-              <div className="wrapper">
-                <p className="muted">Delivery Charges</p>
-                <p className="muted">₹ 50.00</p>
-              </div>
-              <div className="wrapper">
-                <p className="muted">Total Payable</p>
-                <h2>₹ {coupen ? cartTotal() - 5 : cartTotal()}</h2>
-              </div>
-              <button className="btn-success" onClick={orderHandler}>
-                {loading ? <Loader /> : "checkout"}
-              </button>
+              {showCheckout ? (
+                <Checkout cartPrice={coupen ? cartTotal() - 5 : cartTotal()} />
+              ) : (
+                <>
+                  <h3 className="muted">
+                    You are saving <span>₹ {totalSaved()}</span>
+                  </h3>
+                  <button
+                    className="coupen"
+                    onClick={() => setCoupen((prev) => (prev = !prev))}
+                  >
+                    {coupen ? "applied!" : "Apply coupen!"}
+                  </button>
+                  <div className="wrapper">
+                    <p className="muted">Delivery Charges</p>
+                    <p className="muted">₹ 50.00</p>
+                  </div>
+                  <div className="wrapper">
+                    <p className="muted">Total Payable</p>
+                    <h2>₹ {coupen ? cartTotal() - 5 : cartTotal()}</h2>
+                  </div>
+                  <button
+                    className="btn-success"
+                    onClick={() => setCheckout(true)}
+                  >
+                    Checkout
+                  </button>
+                </>
+              )}
             </div>
           </>
         ) : (

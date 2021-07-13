@@ -41,7 +41,9 @@ export const Navbar = () => {
                   <FiShoppingCart />
                 </span>
                 cart
-                <div className="badge">{cart.length}</div>
+                {cart.length !== 0 && (
+                  <div className="badge">{cart.length}</div>
+                )}
               </NavLink>
             </li>
             <li>
@@ -57,16 +59,16 @@ export const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <button
-                style={{ border: 0, color: "var(--c-success-100" }}
+              <NavLink
+                to="/profile"
                 className="nav-link"
-                onClick={() => (user ? dispatch(logout()) : navigate("/auth"))}
+                activeClassName="nav-link-active"
               >
                 <span className="icon">
                   <FaUserCircle />
                 </span>
-                {user ? "logout" : "log in"}
-              </button>
+                {user ? user : "log in"}
+              </NavLink>
             </li>
           </ul>
         </nav>

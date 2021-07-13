@@ -6,4 +6,6 @@ export { Loader } from "./Loader";
 export * from './Login';
 export * from './Register';
 export * from './PrivateRoute';
-export * from './Alert'
+export * from './Alert';
+export * from './Checkout';
+export * from './Address';

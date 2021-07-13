@@ -2,19 +2,19 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
 
 const API_URL = "https://farmers-grocery-v2.herokuapp.com/orders";
+// const API_URL = "http://localhost:3000/orders";
 
 export const fetchOrders = createAsyncThunk('order/fetchOrders', async () => {
     const { data } = await axios.get(API_URL);
-    console.log(data);
     return data;
 });
-export const placeOrder = createAsyncThunk('order/placeOrder', async (products) => {
-    const { data } = await axios.post(API_URL);
+export const placeOrder = createAsyncThunk('order/placeOrder', async (addressId) => {
+    const { data } = await axios.post(API_URL, { addressId });
     return data;
 })
 
 const initialState = {
-    orderedItems: [],
+    orders: [],
     orderLoading: false,
     message: null
 }
@@ -23,18 +23,20 @@ export const orderSlice = createSlice({
     name: 'order',
     initialState,
     reducers: {
-
+        setMessage: (state, action) => {
+            state.message = action.payload
+        }
     },
     extraReducers: {
         [fetchOrders.pending]: (state) => {
             state.orderLoading = true;
         },
         [fetchOrders.fulfilled]: (state, action) => {
-            const { success, products, message } = action.payload;
+            const { success, response } = action.payload;
             if (success) {
-                state.orderedItems = products
-            } else {
-                state.message = message
+                state.orders = response.map(({ products, addressId }) => {
+                    return { products, address: `${addressId.address} ${addressId.pincode}` }
+                });
             }
             state.orderLoading = false;
         },
@@ -55,4 +57,5 @@ export const orderSlice = createSlice({
         },
     }
 })
+export const { setMessage } = orderSlice.actions;
 export default orderSlice.reducer;

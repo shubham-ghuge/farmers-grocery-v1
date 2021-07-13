@@ -16,8 +16,16 @@ export const Product = () => {
   const dispatch = useDispatch();
   let navigation = useNavigate();
   const { products, loading } = useSelector((state) => state.product);
-  const { _id, name, description, price, imgUrl, discount, isInCart } =
-    products.find((item) => item._id === productId);
+  const {
+    _id,
+    name,
+    description,
+    price,
+    imgUrl,
+    discount,
+    isInCart,
+    farmerId,
+  } = products.find((item) => item._id === productId);
 
   return (
     <>
@@ -65,9 +73,7 @@ export const Product = () => {
                       isInCart
                         ? navigation("/cart")
                         : dispatch(
-                            addInCart({
-                              productDetails: { productId: _id, quantity: 1 },
-                            })
+                            addInCart({ productId: _id, quantity: 1, farmerId })
                           )
                     }
                   >

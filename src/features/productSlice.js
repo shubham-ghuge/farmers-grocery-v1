@@ -3,6 +3,8 @@ import axios from "axios"
 
 const API_URL = "https://farmers-grocery-v2.herokuapp.com";
 
+// const API_URL = "http://localhost:3000";
+
 export const fetchProducts = createAsyncThunk('product/fetchProducts', async () => {
     const { data } = await axios.get(`${API_URL}/products`);
     return data;
@@ -28,7 +30,7 @@ export const updateInCart = createAsyncThunk('product/updateInCart', async (prod
     return data
 })
 
-export const fetchBag = createAsyncThunk('product/fetchBag', async (productId) => {
+export const fetchBag = createAsyncThunk('product/fetchBag', async () => {
     const { data } = await axios.get(`${API_URL}/wishlist`)
     return data;
 })
@@ -60,6 +62,9 @@ const productSlice = createSlice({
         },
         setMessage: (state, action) => {
             state.message = action.payload;
+        },
+        resetCart: (state) => {
+            state.cart = []
         }
     },
     extraReducers: {
@@ -173,5 +178,5 @@ const productSlice = createSlice({
     }
 });
 
-export const { addProductInCart, setMessage } = productSlice.actions;
+export const { addProductInCart, setMessage, resetCart } = productSlice.actions;
 export default productSlice.reducer;

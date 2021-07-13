@@ -5,5 +5,4 @@ export { NotFound } from "./NotFound";
 export { Product } from "./Product";
 export { ProductsListing } from "./ProductsListing";
 export * from './Auth';
-export * from './Checkout';
 export * from './Profile';

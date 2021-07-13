@@ -2,12 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
 
 const API_URL = "https://farmers-grocery-v2.herokuapp.com";
+// const API_URL = "http://localhost:3000";
+
 export const registerUser = createAsyncThunk('auth/register', async (userDetails) => {
     const { data } = await axios.post(`${API_URL}/customers/register`, userDetails);
     return data;
 });
 export const loginUser = createAsyncThunk('auth/login', async (userDetails) => {
-    console.log(userDetails);
     const { data } = await axios.post(`${API_URL}/customers/login`, userDetails);
     return data;
 });

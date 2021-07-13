@@ -1,8 +1,7 @@
 import "./styles.css";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { useDataProvider } from "./contexts/useDataProvider";
 import { Navbar, Loader, Login, Register, PrivateRoute } from "./components";
 import {
   Bag,
@@ -13,7 +12,6 @@ import {
   ProductsListing,
   Auth,
   Profile,
-  Checkout,
 } from "./pages";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "./features/authSlice";
@@ -22,11 +20,18 @@ import {
   fetchCartData,
   fetchProducts,
 } from "./features/productSlice";
+import { fetchAddress } from "./features/addressSlice";
 
 export default function App() {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.product);
-  const { userLoginStatus } = useSelector((state) => state.auth);
+  const { userLoginStatus, logout } = useSelector((state) => state.auth);
+  axios.interceptors.response.use(undefined, function (error) {
+    if (error.response.status === 401) {
+      dispatch(logout());
+    }
+    return Promise.reject(error);
+  });
   useEffect(() => {
     const { isUserLoggedIn, token, user } =
       JSON.parse(localStorage.getItem("login")) || {};
@@ -39,6 +44,7 @@ export default function App() {
     if (userLoginStatus) {
       dispatch(fetchCartData());
       dispatch(fetchBag());
+      dispatch(fetchAddress());
     }
   }, [userLoginStatus]);
 
@@ -63,7 +69,6 @@ export default function App() {
         <PrivateRoute path="/bag" element={<Bag />} />
         <PrivateRoute path="/cart" element={<Cart />} />
         <PrivateRoute path="/profile" element={<Profile />} />
-        <PrivateRoute path="/" element={<Checkout />} />
       </Routes>
     </div>
   );
