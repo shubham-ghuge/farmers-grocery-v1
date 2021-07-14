@@ -24,12 +24,12 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         setToken: (state, action) => {
-            console.log("setting headers in reducer");
             axios.defaults.headers.common["Authorization"] = action.payload.token;
             state.userLoginStatus = true;
             state.user = action.payload.user;
         },
         logout: (state) => {
+            console.log("here in reducer");
             localStorage.removeItem("login")
             state.userLoginStatus = false;
             state.user = null;

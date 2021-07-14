@@ -14,7 +14,7 @@ import {
   Profile,
 } from "./pages";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken } from "./features/authSlice";
+import { setToken, logout } from "./features/authSlice";
 import {
   fetchBag,
   fetchCartData,
@@ -25,7 +25,7 @@ import { fetchAddress } from "./features/addressSlice";
 export default function App() {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.product);
-  const { userLoginStatus, logout } = useSelector((state) => state.auth);
+  const { userLoginStatus } = useSelector((state) => state.auth);
   axios.interceptors.response.use(undefined, function (error) {
     if (error.response.status === 401) {
       dispatch(logout());
