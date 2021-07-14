@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import React from "react";
+import { Carousel } from "../components";
 
 export const Home = () => {
   const categories = [
@@ -15,12 +16,7 @@ export const Home = () => {
   return (
     <>
       <section className="hero">
-        <Link to="/store">
-          <img
-            src={`https://api-farmers-grocery.herokuapp.com/images/banner.jpg`}
-            alt="banner"
-          />
-        </Link>
+        <Carousel />
       </section>
       <div className="category-layout">
         {categories.map((item, idx) => (

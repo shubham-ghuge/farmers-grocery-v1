@@ -1,0 +1,79 @@
+.carouselContainer,
+.carouselBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.carouselContainer {
+  transition: all 0.3s ease;
+  height: 50vh;
+  width: 100vw;
+  position: relative;
+}
+.carouselBody {
+  color: #fff;
+  font-size: var(--fsz-2);
+  flex-direction: column;
+}
+.text {
+  width: 80%;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.cta {
+  background-color: #fff;
+  color: rgb(27, 27, 27);
+  border: 0;
+  display: flex;
+  align-items: center;
+  font-family: "Inter";
+  text-transform: capitalize;
+  font-weight: 600;
+  padding: 0 var(--p-2);
+  border-radius: var(--br-1);
+  font-size: var(--fsz-1);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+.cta svg {
+  font-size: 2rem;
+  margin: 0.5rem 0 0.5rem 0.5rem;
+}
+.actionsPrev,
+.actionsNext {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  top: 45%;
+  border-radius: 50%;
+  position: absolute;
+  background-color: #fff;
+  border: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--p-2);
+  color: #000;
+  font-size: 1rem;
+}
+
+.actionsPrev {
+  left: 2%;
+}
+.actionsNext {
+  right: 2%;
+}
+.actions svg {
+  font-size: var(--fsz-2);
+}
+@media all and (min-width: 600px) {
+  .text {
+    width: 70%;
+    font-size: var(--fsz-5);
+  }
+  .cta {
+    padding: 0 var(--p-7);
+  }
+  .actionsPrev,
+  .actionsNext {
+    font-size: 1.5rem;
+  }
+}

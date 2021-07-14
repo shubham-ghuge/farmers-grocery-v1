@@ -24,13 +24,13 @@ function Login() {
   }
 
   return (
-    <div className="flex-column h-70 jc-center ai-center">
+    <div className="flex-column auth-form jc-center ai-center">
       {message && (
         <Alert message={message} onClose={() => dispatch(setMessage())} />
       )}
       <h2 className="fsz-3">Login</h2>
       <form
-        className="flex-column auth-form my-4 ai-center"
+        className="flex-column my-4 ai-center"
         onSubmit={(e) => loginFormHandler(e)}
       >
         <label className="fsz-1 flex-column fw-500">

@@ -4,9 +4,6 @@ body {
 .cursor-pointer {
   cursor: pointer;
 }
-.nav-adjust {
-  margin-top: 80px;
-}
 .nav-link {
   position: relative;
 }
@@ -21,6 +18,14 @@ body {
   left: 0%;
   right: 0%;
   z-index: var(--z-2);
+}
+.auth-form {
+  background-color: #fff;
+  height: 70vh;
+  width: 95vw;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border-radius: var(--br-2);
 }
 .auth-form input {
   height: 40px;
@@ -90,11 +95,24 @@ body {
   object-fit: cover;
   object-position: 15%;
 }
+.auth-container {
+  height: calc(100vh - 100px);
+}
+.reset-link:hover {
+  text-decoration: none;
+}
 @media all and (min-width: 600px) {
+  .nav-adjust {
+    margin-top: 70px;
+  }
   .hero img {
     object-fit: unset;
     object-position: unset;
     height: 50vh;
+  }
+  .auth-form {
+    height: 80vh;
+    width: 40vw;
   }
 }
 

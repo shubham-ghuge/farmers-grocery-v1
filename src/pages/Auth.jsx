@@ -3,7 +3,7 @@ import { Outlet } from "react-router";
 
 function Auth() {
   return (
-    <div className="nav-adjust p-7">
+    <div className="d-flex jc-center ai-center auth-container">
       <Outlet />
     </div>
   );

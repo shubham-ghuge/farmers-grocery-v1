@@ -9,3 +9,4 @@ export * from './PrivateRoute';
 export * from './Alert';
 export * from './Checkout';
 export * from './Address';
+export * from './Carousel'
