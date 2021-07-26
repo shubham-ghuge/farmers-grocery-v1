@@ -8,5 +8,6 @@ export * from './Register';
 export * from './PrivateRoute';
 export * from './Alert';
 export * from './Checkout';
-export * from './Address';
-export * from './Carousel'
+export * from './Address';;
+export * from './UserInfo';
+export * from './Carousel';

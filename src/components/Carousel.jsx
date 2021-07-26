@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./components.module.css";
 import { GrPrevious, GrNext } from "react-icons/gr";
 import { AiOutlineShop } from "react-icons/ai";
@@ -20,6 +20,12 @@ function Carousel() {
       bgc: "linear-gradient(to right, #ff0099, #493240)",
     },
   ]);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((curr) => (curr >= tagline.length-1 ? 1 : curr + 1));
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
   const [currentIndex, setCurrentIndex] = useState(0);
   return (
     <div
@@ -36,9 +42,9 @@ function Carousel() {
       >
         <GrPrevious />
       </button>
-      <div className={styles.carouselBody}>
+      <div className={styles.carouselBody} onClick={() => navigate("/store")}>
         <h3 className={styles.text}>{tagline[currentIndex].text}</h3>
-        <button className={styles.cta} onClick={() => navigate("/store")}>
+        <button className={styles.cta}>
           shop now{" "}
           <span>
             <AiOutlineShop />

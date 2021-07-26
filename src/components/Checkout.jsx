@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import StripeCheckout from "react-stripe-checkout";
 import { placeOrder, setMessage } from "../features/orderSlice";
 import { fetchProducts, resetCart } from "../features/productSlice";
 import { Alert } from "./Alert";
 import { Loader } from "./Loader";
+import { apiKey } from "./base";
+import { createPayment } from "../features/orderSlice";
 
 function Checkout({ cartPrice }) {
   const { address } = useSelector((state) => state.address);
   const [addressId, setAddressId] = useState("");
-
   let navigate = useNavigate();
 
   const { orderLoading, message } = useSelector((state) => state.order);
@@ -21,8 +23,12 @@ function Checkout({ cartPrice }) {
       navigate("/profile");
     }
   }, [message]);
+
   function orderHandler() {
     dispatch(placeOrder(addressId));
+  }
+  function handlePayment(token) {
+    dispatch(createPayment(token, cartPrice));
   }
   return (
     <>
@@ -60,9 +66,15 @@ function Checkout({ cartPrice }) {
       <button className="coupen" onClick={() => navigate("/profile#address")}>
         Add new Address
       </button>
-      <button className="btn-success" onClick={() => orderHandler()}>
+      {/* <button className="btn-success" onClick={() => orderHandler()}>
         {orderLoading ? <Loader /> : "place order"}
-      </button>
+      </button> */}
+      <StripeCheckout
+        stripeKey={apiKey}
+        token={handlePayment}
+        amount={cartPrice / 100}
+        name="Farmers Grocery"
+      />
     </>
   );
 }

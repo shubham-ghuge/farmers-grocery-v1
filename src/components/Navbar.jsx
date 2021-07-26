@@ -84,13 +84,6 @@ export const Navbar = () => {
           </label>
         </div>
       </header>
-      {/* extract search component */}
-      <div className="input-addon-success mobile-search d-block d-sm-none">
-        <span className="icon">
-          <FiSearch />
-        </span>
-        <input type="search" placeholder="Search Products, Brands & More" />
-      </div>
     </>
   );
 };

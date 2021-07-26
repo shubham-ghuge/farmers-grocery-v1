@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Checkout, Jumbotron } from "../components";
+import { Alert, Checkout, Jumbotron } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchCartData,
   removeFromCart,
+  setMessage,
   updateInCart,
 } from "../features/productSlice";
 
@@ -13,16 +14,16 @@ export const Cart = () => {
   const [coupen, setCoupen] = useState(false);
   const [showCheckout, setCheckout] = useState(false);
   const dispatch = useDispatch();
-  const { products, cart } = useSelector((state) => state.product);
+  const { products, cart, cartMessage } = useSelector((state) => state.product);
 
   useEffect(() => {
     dispatch(fetchCartData());
   }, []);
   let navigation = useNavigate();
 
-  const productsInCart = products.filter((item) => {
-    return cart.find((i) => item._id === i.productId);
-  });
+  const productsInCart = products.filter((item) =>
+    cart.find((i) => item._id === i.productId)
+  );
 
   function updateQuantityHandler(quantity, id, farmerId) {
     if (quantity === 0) {
@@ -53,7 +54,7 @@ export const Cart = () => {
 
   return (
     <>
-      <div className="cart-layout nav-adjust">
+      <div className="cart-layout extra-margin">
         {productsInCart.length ? (
           <>
             <div className="cart">
@@ -155,6 +156,13 @@ export const Cart = () => {
           <Jumbotron text="Cart" />
         )}
       </div>
+      {cartMessage && (
+        <Alert
+          message={cartMessage}
+          onClose={() => dispatch(setMessage("cartMessage"))}
+          color={"success"}
+        />
+      )}
     </>
   );
 };

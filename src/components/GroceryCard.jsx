@@ -74,7 +74,10 @@ export function GroceryCard({ product }) {
         </button>
       </div>
       {showAlert && (
-        <Alert message={"Please Login"} onClose={() => setShowAlert(false)} />
+        <Alert
+          message={"Please login to add product in cart"}
+          onClose={() => setShowAlert(false)}
+        />
       )}
     </>
   );

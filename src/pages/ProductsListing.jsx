@@ -7,12 +7,12 @@ export const ProductsListing = () => {
   const { products, message } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   return (
-    <div
-      className={"d-flex nav-adjust"}
-      style={{ flexWrap: "wrap", justifyContent: "center" }}
-    >
+    <div className="flex-layout jc-center extra-margin">
       {message && (
-        <Alert message={message} onClose={() => dispatch(setMessage(null))} />
+        <Alert
+          message={message}
+          onClose={() => dispatch(setMessage("message"))}
+        />
       )}
       {products &&
         products.map((item) => <GroceryCard product={item} key={item._id} />)}

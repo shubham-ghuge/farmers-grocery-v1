@@ -51,6 +51,8 @@ const initialState = {
     bag: [],
     loading: false,
     message: null,
+    cartMessage: null,
+    wishlistMessage: null,
 }
 
 const productSlice = createSlice({
@@ -61,7 +63,7 @@ const productSlice = createSlice({
             state.cart.push(action.payload)
         },
         setMessage: (state, action) => {
-            state.message = action.payload;
+            state[action.payload] = null;
         },
         resetCart: (state) => {
             state.cart = []
@@ -82,11 +84,15 @@ const productSlice = createSlice({
         [fetchCartData.fulfilled]: (state, action) => {
             const { products } = action.payload.response;
             state.cart = products;
-            const cartProductIds = products.map(i => i.productId);
+            function getProductQuantity(id) {
+                const product = products.find(i => i.productId === id)
+                return product.quantity
+            }
+            const productInCart = (product) => products.find(i => i.productId === product._id)
             state.products = state.products.map(product => {
-                if (cartProductIds.includes(product._id)) {
+                if (productInCart(product)) {
                     product['isInCart'] = true;
-                    product['quantity'] = 1;
+                    product['quantity'] = getProductQuantity(product._id)
                     return product;
                 }
                 return product;
@@ -130,7 +136,7 @@ const productSlice = createSlice({
         [updateInCart.fulfilled]: (state, action) => {
             const { message, productDetails } = action.payload;
             const { productId, quantity } = productDetails
-            state.message = message;
+            state.cartMessage = message;
             state.products = state.products.map(i => {
                 if (i._id === productId) {
                     i['quantity'] = quantity;

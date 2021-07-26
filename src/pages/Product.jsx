@@ -15,6 +15,7 @@ export const Product = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
   let navigation = useNavigate();
+  const { userLoginStatus } = useSelector((state) => state.auth);
   const { products, loading } = useSelector((state) => state.product);
   const {
     _id,
@@ -28,14 +29,13 @@ export const Product = () => {
   } = products.find((item) => item._id === productId);
 
   return (
-    <>
+    <div className="extra-margin">
       {loading ? (
         "loading..."
       ) : (
         <div>
           <button
-            className="btn-c-primary"
-            style={{ marginBottom: ".7rem", marginLeft: ".1rem" }}
+            className="btn-c-primary mb-4"
             onClick={() => navigation("/store")}
           >
             Back to Products
@@ -72,7 +72,8 @@ export const Product = () => {
                     onClick={() =>
                       isInCart
                         ? navigation("/cart")
-                        : dispatch(
+                        : userLoginStatus &&
+                          dispatch(
                             addInCart({ productId: _id, quantity: 1, farmerId })
                           )
                     }
@@ -156,6 +157,6 @@ export const Product = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };

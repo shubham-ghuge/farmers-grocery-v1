@@ -14,7 +14,7 @@ export const Bag = () => {
   });
 
   return (
-    <div className="bag-layout nav-adjust">
+    <div className="bag-layout extra-margin">
       {!productsInBag.length ? (
         <Jumbotron text="Bag" />
       ) : (
