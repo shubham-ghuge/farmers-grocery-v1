@@ -10,6 +10,11 @@ body {
 button {
   font-family: "Inter";
 }
+.list-item span {
+  font-weight: 600;
+  margin-right: var(--p-2);
+}
+
 .btn-reset {
   border: 0;
   background: transparent;

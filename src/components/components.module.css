@@ -64,7 +64,27 @@
 .actions svg {
   font-size: var(--fsz-2);
 }
+.searchResults {
+  position: fixed;
+  top: 76px;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  left: 0;
+  right: 0;
+  z-index: 11;
+  width: 95vw;
+  margin: auto;
+  background-color: #fff;
+}
+.cLink {
+  color: var(--c-link) !important;
+}
+
 @media all and (min-width: 600px) {
+  .searchResults {
+    width: 50vw;
+  }
   .text {
     width: 70%;
     font-size: var(--fsz-5);

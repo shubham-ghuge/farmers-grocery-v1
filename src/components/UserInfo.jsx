@@ -17,21 +17,23 @@ function UserInfo() {
   return (
     <div className="bgc-base-100 py-2 mb-2 pb-2 bdrs-2">
       <h3 className="fsz-2">Your Profile</h3>
-      <div className="d-flex m-4">
-        <div className="avatar-lg">
-          <img src={userImage} alt="avatar" />
+      <div className="flex-layout m-4 jc-space-between ai-center">
+        <div className="d-flex mb-2">
+          <div className="avatar-lg">
+            <img src={userImage} alt="avatar" />
+          </div>
+          <h4 className="fsz-1 m-3">
+            Name : <span className="fw-400">{user}</span>
+          </h4>
         </div>
-        <h4 className="fsz-1 m-3">
-          Name : <span className="fw-400">{user}</span>
-        </h4>
+        <button
+          className="btn-primary d-flex jc-center"
+          onClick={() => logoutHandler()}
+        >
+          <FiLogOut className="fsz-1 mr-2" />
+          Logout
+        </button>
       </div>
-      <button
-        className="btn-primary mx-4 mb-4 d-flex jc-center"
-        onClick={() => logoutHandler()}
-      >
-        <FiLogOut className="fsz-1 mr-2" />
-        Logout
-      </button>
     </div>
   );
 }

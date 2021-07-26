@@ -16,7 +16,11 @@ function Checkout({ cartPrice }) {
 
   const { orderLoading, message } = useSelector((state) => state.order);
   const dispatch = useDispatch();
+
   useEffect(() => {
+    if (message === "Payment successful! Check email for details") {
+      dispatch(placeOrder(addressId));
+    }
     if (message === "order successfully placed") {
       dispatch(resetCart());
       dispatch(fetchProducts());
@@ -24,9 +28,6 @@ function Checkout({ cartPrice }) {
     }
   }, [message]);
 
-  function orderHandler() {
-    dispatch(placeOrder(addressId));
-  }
   function handlePayment(token) {
     dispatch(createPayment(token, cartPrice));
   }
@@ -67,14 +68,17 @@ function Checkout({ cartPrice }) {
         Add new Address
       </button>
       {/* <button className="btn-success" onClick={() => orderHandler()}>
-        {orderLoading ? <Loader /> : "place order"}
       </button> */}
-      <StripeCheckout
-        stripeKey={apiKey}
-        token={handlePayment}
-        amount={cartPrice / 100}
-        name="Farmers Grocery"
-      />
+      {orderLoading ? (
+        "placing your order please wait..."
+      ) : (
+        <StripeCheckout
+          stripeKey={apiKey}
+          token={handlePayment}
+          amount={cartPrice / 100}
+          name="Farmers Grocery"
+        />
+      )}
     </>
   );
 }

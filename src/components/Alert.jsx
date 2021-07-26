@@ -8,7 +8,10 @@ function Alert({ onClose, message, color = "danger" }) {
     }, 2000);
   }, []);
 
-  color = (message.includes("success") && "success") || color;
+  color =
+    (message.includes("success") && "success") ||
+    (message.includes("danger") && "danger") ||
+    color;
 
   return (
     <div className="alert d-flex jc-center">

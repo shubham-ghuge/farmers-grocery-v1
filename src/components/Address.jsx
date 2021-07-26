@@ -12,13 +12,13 @@ function Address() {
     dispatch(addAddress(addressData));
   }
   return (
-    <div className="flex-column ai-start bgc-base-100 py-2 mb-2 pb-2 bdrs-2">
+    <div className="flex-column ai-start w-sm-30 bgc-base-100 py-2 mb-2 pb-2 bdrs-2">
       {message && <h3>{message}</h3>}
       <h2 className="fsz-2">Your Addresses</h2>
       {address.length === 0 ? (
         <h2 className="fsz-1 ml-3 p-3">No Address found please Add One</h2>
       ) : (
-        <div className="list-container bgc-base-100 w-90 w-sm-50">
+        <div className="list-container bgc-base-100">
           {address.map(
             (i, idx) =>
               i.address && (
