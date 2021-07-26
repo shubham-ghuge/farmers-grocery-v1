@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Jumbotron } from "../components";
 import { fetchOrders } from "../features/orderSlice";
 
 function OrderListing() {
   const dispatch = useDispatch();
   const { orders } = useSelector((state) => state.order);
-  const { products } = useSelector((state) => state.product);
-  function getProductDetails(productId) {
-    const product = products.find((i) => i._id === productId);
-    return product;
-  }
   useEffect(() => {
     dispatch(fetchOrders());
   }, []);
@@ -34,7 +30,7 @@ function OrderListing() {
                 <div key={_id} className="list-item">
                   <p>
                     <span>Order id:</span>
-                    {_id}
+                    <Link to={`/orders/${_id}`}>{_id}</Link>
                   </p>
                   <p>
                     <span>Address:</span>

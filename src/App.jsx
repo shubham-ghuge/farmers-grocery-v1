@@ -12,6 +12,7 @@ import {
   ProductsListing,
   Auth,
   Profile,
+  Order,
 } from "./pages";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken, logout } from "./features/authSlice";
@@ -69,6 +70,7 @@ export default function App() {
         <PrivateRoute path="/bag" element={<Bag />} />
         <PrivateRoute path="/cart" element={<Cart />} />
         <PrivateRoute path="/profile" element={<Profile />} />
+        <PrivateRoute path="/orders/:orderId" element={<Order />} />
       </Routes>
     </div>
   );

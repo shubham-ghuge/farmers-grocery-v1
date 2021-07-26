@@ -26,6 +26,9 @@ export const addressSlice = createSlice({
     reducers: {
         updateAddress: (state, action) => {
             state.address.push(action.payload)
+        },
+        setMessage: (state) => {
+            state.message = null;
         }
     },
     extraReducers: {
@@ -52,5 +55,5 @@ export const addressSlice = createSlice({
         },
     }
 });
-export const { updateAddress } = addressSlice.actions;
+export const { updateAddress, setMessage } = addressSlice.actions;
 export default addressSlice.reducer;

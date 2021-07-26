@@ -10,7 +10,7 @@ function Alert({ onClose, message, color = "danger" }) {
 
   color =
     (message.includes("success") && "success") ||
-    (message.includes("danger") && "danger") ||
+    (message.includes("danger" || "remove") && "danger") ||
     color;
 
   return (

@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
 
-// const API_URL = "https://farmers-grocery-v2.herokuapp.com/orders";
-const API_URL = "http://localhost:3000/orders";
+const API_URL = "https://farmers-grocery-v2.herokuapp.com/orders";
+// const API_URL = "http://localhost:3000/orders";
 
 
 export const fetchOrders = createAsyncThunk('order/fetchOrders', async () => {

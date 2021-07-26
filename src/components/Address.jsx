@@ -1,19 +1,28 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addAddress } from "../features/addressSlice";
+import { addAddress, setMessage } from "../features/addressSlice";
+import { Alert } from "./Alert";
 
 function Address() {
   const dispatch = useDispatch();
   const [toggle, setToggle] = useState(false);
   const [addressData, setAddressData] = useState({ address: "", pincode: 0 });
   const { loading, message, address } = useSelector((state) => state.address);
+
   function addressHandler(event) {
     event.preventDefault();
     dispatch(addAddress(addressData));
+    setAddressData({ address: "", pincode: 0 });
   }
   return (
     <div className="flex-column ai-start w-sm-30 bgc-base-100 py-2 mb-2 pb-2 bdrs-2">
-      {message && <h3>{message}</h3>}
+      {message && (
+        <Alert
+          message={message}
+          onClose={() => dispatch(setMessage())}
+          color="primary"
+        />
+      )}
       <h2 className="fsz-2">Your Addresses</h2>
       {address.length === 0 ? (
         <h2 className="fsz-1 ml-3 p-3">No Address found please Add One</h2>
@@ -36,7 +45,7 @@ function Address() {
           className="btn-primary mx-4"
           onClick={() => setToggle((curr) => !curr)}
         >
-          Add new address
+          {toggle ? "close" : "Add new address"}
         </button>
         {toggle && (
           <form className="flex-column m-4" onSubmit={(e) => addressHandler(e)}>

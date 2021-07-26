@@ -11,6 +11,7 @@ export const ProductsListing = () => {
       {message && (
         <Alert
           message={message}
+          color="primary"
           onClose={() => dispatch(setMessage("message"))}
         />
       )}

@@ -13,13 +13,13 @@ import {
 export const Cart = () => {
   const [coupen, setCoupen] = useState(false);
   const [showCheckout, setCheckout] = useState(false);
+  let navigation = useNavigate();
   const dispatch = useDispatch();
   const { products, cart, cartMessage } = useSelector((state) => state.product);
 
   useEffect(() => {
     dispatch(fetchCartData());
   }, []);
-  let navigation = useNavigate();
 
   const productsInCart = products.filter((item) =>
     cart.find((i) => item._id === i.productId)
@@ -28,8 +28,9 @@ export const Cart = () => {
   function updateQuantityHandler(quantity, id, farmerId) {
     if (quantity === 0) {
       dispatch(removeFromCart(id));
+    } else {
+      dispatch(updateInCart({ productId: id, quantity, farmerId }));
     }
-    dispatch(updateInCart({ productId: id, quantity, farmerId }));
   }
 
   const cartTotal = () => {
@@ -160,7 +161,7 @@ export const Cart = () => {
         <Alert
           message={cartMessage}
           onClose={() => dispatch(setMessage("cartMessage"))}
-          color={"success"}
+          color={"primary"}
         />
       )}
     </>

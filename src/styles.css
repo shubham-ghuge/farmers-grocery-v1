@@ -154,6 +154,9 @@ button {
   border-radius: var(--br-2);
 }
 @media all and (min-width: 600px) {
+  .flex-row {
+    flex-direction: row !important;
+  }
   .product-layout {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr;

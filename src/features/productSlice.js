@@ -106,8 +106,8 @@ const productSlice = createSlice({
         },
         [addInCart.fulfilled]: (state, action) => {
             const { message, productDetails } = action.payload;
-            const { productId } = productDetails
-            state.message = message;
+            const { productId } = productDetails;
+            state.cartMessage = message;
             state.cart.push(productId)
             state.products = state.products.map(i => {
                 if (i._id === productId) {
@@ -118,11 +118,11 @@ const productSlice = createSlice({
             })
         },
         [addInCart.rejected]: (state) => {
-            state.message = "error while adding product in cart,check your internet connection";
+            state.cartMessage = "error while adding product in cart,check your internet connection";
         },
         [removeFromCart.fulfilled]: (state, action) => {
             const { message, productId } = action.payload
-            state.message = message;
+            state.cartMessage = message;
             state.cart = state.cart.filter(i => i.productId !== productId)
             state.products.find(i => {
                 if (i._id === productId) {
@@ -131,11 +131,11 @@ const productSlice = createSlice({
             })
         },
         [removeFromCart.rejected]: (state) => {
-            state.message = "error while removing product in cart,check your internet connection";
+            state.cartMessage = "error while removing product in cart,check your internet connection";
         },
         [updateInCart.fulfilled]: (state, action) => {
             const { message, productDetails } = action.payload;
-            const { productId, quantity } = productDetails
+            const { productId, quantity } = productDetails;
             state.cartMessage = message;
             state.products = state.products.map(i => {
                 if (i._id === productId) {
