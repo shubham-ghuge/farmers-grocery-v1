@@ -16,7 +16,7 @@ export const placeOrder = createAsyncThunk('order/placeOrder', async (addressId)
 })
 
 export const createPayment = createAsyncThunk('order/createOrder', async (token, amount) => {
-    const { data } = await axios.post('http://localhost:3000/payments', { token, amount });
+    const { data } = await axios.post('https://farmers-grocery-v2.herokuapp.com/payments', { token, amount });
     return data.status;
 })
 
