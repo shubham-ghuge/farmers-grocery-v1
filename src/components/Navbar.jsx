@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FiShoppingCart, FiShoppingBag } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
+import { GiCorn } from "react-icons/gi";
 import logo from "../assets/logo-trans.png";
 import { useSelector } from "react-redux";
 import { Search } from "./Search";
@@ -26,6 +27,19 @@ export function Navbar() {
       <Search />
       <nav className={menu ? null : "d-none"}>
         <ul onClick={() => setMenu(false)}>
+          <li>
+            <NavLink
+              to="/store"
+              className="nav-link"
+              activeClassName="nav-link-active"
+            >
+              <span className="icon">
+                <GiCorn />
+              </span>
+              Products
+            </NavLink>
+          </li>
+
           <li>
             <NavLink
               to="/cart"

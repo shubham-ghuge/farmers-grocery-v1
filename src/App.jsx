@@ -19,6 +19,7 @@ import { setToken, logout } from "./features/authSlice";
 import {
   fetchBag,
   fetchCartData,
+  fetchCategories,
   fetchProducts,
 } from "./features/productSlice";
 import { fetchAddress } from "./features/addressSlice";
@@ -50,6 +51,7 @@ export default function App() {
   }, [userLoginStatus]);
 
   useEffect(() => {
+    dispatch(fetchCategories());
     dispatch(fetchProducts());
   }, []);
 

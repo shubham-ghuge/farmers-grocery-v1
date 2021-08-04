@@ -10,6 +10,11 @@ export const fetchProducts = createAsyncThunk('product/fetchProducts', async () 
     return data;
 })
 
+export const fetchCategories = createAsyncThunk('product/fetchCategories', async () => {
+    const { data } = await axios.get(`${API_URL}/products/category`);
+    return data;
+})
+
 export const fetchCartData = createAsyncThunk('product/fetchCartData', async () => {
     const { data } = await axios.get(`${API_URL}/cart`);
     return data;
@@ -49,12 +54,16 @@ const initialState = {
     products: [],
     cart: [],
     bag: [],
+    categories: [],
     cartSize: 0,
     bagSize: 0,
     loading: false,
     message: null,
     cartMessage: null,
     wishlistMessage: null,
+    initialData: [],
+    filterBySort: "",
+    filterCategoryData: []
 }
 
 const productSlice = createSlice({
@@ -72,6 +81,21 @@ const productSlice = createSlice({
         },
         resetCartSize: () => {
             state.cartSize = 0;
+        },
+        sortProducts: (state, action) => {
+            state.filterBySort = action.payload
+        },
+        setProducts: (state, action) => {
+            state.products = action.payload;
+        },
+        filterProducts: (state, action) => {
+            const { id, status } = action.payload;
+            state.filterCategoryData = status ? [...state.filterCategoryData, id] : state.filterCategoryData.filter(i => i !== id)
+        },
+        clearFilters: (state) => {
+            state.products = state.initialData;
+            state.filterBySort = "";
+            state.filterCategoryData = [];
         }
     },
     extraReducers: {
@@ -79,12 +103,18 @@ const productSlice = createSlice({
             state.loading = true;
         },
         [fetchProducts.fulfilled]: (state, action) => {
-            state.products = action.payload.response;
+            const { response } = action.payload;
+            state.products = response;
+            state.initialData = response;
             state.loading = false;
         },
         [fetchProducts.rejected]: (state) => {
             state.loading = false;
             state.message = "error while fetching products,check your internet connection";
+        },
+        [fetchCategories.fulfilled]: (state, action) => {
+            const { response } = action.payload;
+            state.categories = response;
         },
         [fetchCartData.fulfilled]: (state, action) => {
             const { products } = action.payload.response;
@@ -195,5 +225,5 @@ const productSlice = createSlice({
     }
 });
 
-export const { addProductInCart, setMessage, resetCart, resetCartSize } = productSlice.actions;
+export const { addProductInCart, setMessage, resetCart, resetCartSize, sortProducts, setProducts, filterProducts, clearFilters } = productSlice.actions;
 export default productSlice.reducer;
