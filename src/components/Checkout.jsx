@@ -5,7 +5,6 @@ import StripeCheckout from "react-stripe-checkout";
 import { placeOrder, setMessage } from "../features/orderSlice";
 import { fetchProducts, resetCart } from "../features/productSlice";
 import { Alert } from "./Alert";
-import { Loader } from "./Loader";
 import { apiKey } from "./base";
 import { createPayment } from "../features/orderSlice";
 
@@ -27,7 +26,6 @@ function Checkout({ cartPrice }) {
       navigate("/profile");
     }
   }, [message]);
-
   function handlePayment(token) {
     dispatch(createPayment(token, cartPrice));
   }
@@ -51,8 +49,11 @@ function Checkout({ cartPrice }) {
           name="address"
           value={addressId}
           onChange={(e) => setAddressId(e.target.value)}
+          className="coupen"
         >
-          <option defaultValue>Select</option>
+          <option defaultValue value="">
+            Select
+          </option>
           {address &&
             address.map(
               (i) =>
@@ -64,18 +65,20 @@ function Checkout({ cartPrice }) {
             )}
         </select>
       </div>
-      <button className="coupen" onClick={() => navigate("/profile#address")}>
-        Add new Address
-      </button>
-      {/* <button className="btn-success" onClick={() => orderHandler()}>
-      </button> */}
       {orderLoading ? (
-        "placing your order please wait..."
+        <p className="py-2 pb-2 fsz-2 bgc-success-100">
+          placing your order please wait...
+        </p>
+      ) : addressId === "" && addressId !== "Select" ? (
+        <>
+          <button className="btn-primary">Pay now</button>
+          <p className="c-danger mt-2">please select address</p>
+        </>
       ) : (
         <StripeCheckout
           stripeKey={apiKey}
           token={handlePayment}
-          amount={cartPrice / 100}
+          amount={cartPrice}
           name="Farmers Grocery"
         />
       )}

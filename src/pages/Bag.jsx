@@ -1,13 +1,15 @@
 import React from "react";
 import { BiTrash, BiCart } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import { Jumbotron } from "../components";
+import { Alert, Jumbotron } from "../components";
 import { useDispatch, useSelector } from "react-redux";
-import { addInCart, removeFromBag } from "../features/productSlice";
+import { addInCart, removeFromBag, setMessage } from "../features/productSlice";
 
 export const Bag = () => {
   const navigation = useNavigate();
-  const { bag, products } = useSelector((state) => state.product);
+  const { bag, products, message, cartMessage } = useSelector(
+    (state) => state.product
+  );
   const dispatch = useDispatch();
   const productsInBag = products.filter((item) => {
     return bag.find((i) => item._id === i);
@@ -15,11 +17,29 @@ export const Bag = () => {
 
   return (
     <div className="bag-layout extra-margin">
+      {(message || cartMessage) && (
+        <Alert
+          message={message || cartMessage}
+          color="primary"
+          onClose={() =>
+            dispatch(setMessage(message ? "message" : "cartMessage"))
+          }
+        />
+      )}
       {!productsInBag.length ? (
         <Jumbotron text="Bag" />
       ) : (
         productsInBag.map(
-          ({ _id, imgUrl, name, description, price, discount, isInCart }) => (
+          ({
+            _id,
+            imgUrl,
+            name,
+            description,
+            price,
+            discount,
+            isInCart,
+            farmerId,
+          }) => (
             <figure className="wishlist-card" key={_id}>
               <img src={imgUrl} alt="product" />
               <figcaption>
@@ -51,9 +71,7 @@ export const Bag = () => {
                       isInCart
                         ? navigation("/cart")
                         : dispatch(
-                            addInCart({
-                              productDetails: { productId: _id, quantity: 1 },
-                            })
+                            addInCart({ productId: _id, quantity: 1, farmerId })
                           )
                     }
                   >

@@ -15,7 +15,7 @@ function Address() {
     setAddressData({ address: "", pincode: 0 });
   }
   return (
-    <div className="flex-column ai-start w-sm-30 bgc-base-100 py-2 mb-2 pb-2 bdrs-2">
+    <div className="flex-column ai-start w-sm-30 address-w bgc-base-100 py-2 mb-2 pb-2 bdrs-2">
       {message && (
         <Alert
           message={message}
@@ -53,6 +53,7 @@ function Address() {
               <span className="mb-2">Address</span>
               <input
                 type="text"
+                className="input"
                 value={addressData.address}
                 onChange={(e) =>
                   setAddressData((curr) => ({
@@ -65,6 +66,7 @@ function Address() {
             <label className="fsz-1 flex-column fw-500">
               <span className="mb-2 text-sm">Pin Code</span>
               <input
+                className="input"
                 type="number"
                 value={addressData.pincode}
                 onChange={(e) =>

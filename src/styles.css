@@ -32,16 +32,26 @@ button {
 }
 .auth-form {
   background-color: #fff;
-  height: 70vh;
+  padding: 2rem 0;
   width: 95vw;
-  margin: 0 auto;
+  margin: 9rem auto 0;
   box-sizing: border-box;
   border-radius: var(--br-2);
 }
-.auth-form input {
+.auth-form input,
+.input {
   height: 40px;
   margin-bottom: 0.5rem;
+  padding: var(--p-2);
+  border-radius: var(--br-1);
+  border: 2px solid #ccc;
+  box-sizing: border-box;
   width: 315px;
+}
+.auth-form input:focus,
+.input:focus {
+  outline: 0;
+  border-color: var(--c-primary-200);
 }
 .auth-form .btn-primary {
   width: 315px;
@@ -112,7 +122,16 @@ button {
 .reset-link:hover {
   text-decoration: none;
 }
+.address-w {
+  width: 100%;
+}
+.order {
+  width: 95%;
+}
 @media all and (min-width: 600px) {
+  .order{
+    width: 70vw;
+  }
   .nav-adjust {
     margin-top: 70px;
   }
@@ -122,7 +141,7 @@ button {
     height: 50vh;
   }
   .auth-form {
-    margin-top: 3rem;
+    margin-top: 7rem;
     height: 80vh;
     width: 40vw;
   }

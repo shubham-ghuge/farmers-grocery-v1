@@ -52,7 +52,9 @@ export const Cart = () => {
       )
       .toFixed(2);
   };
-
+  function actualPrice(price, discount) {
+    return (price - (price * discount) / 100).toFixed(2);
+  }
   return (
     <>
       <div className="cart-layout extra-margin">
@@ -87,7 +89,7 @@ export const Cart = () => {
                           <span> 1kg</span>
                         </h3>
                         <h4 className="product-price">
-                          ₹{(price - (price * discount) / 100).toFixed(2)}
+                          ₹{actualPrice(price, discount)}
                           <span className="strike">₹ {price}.00</span>
                         </h4>
                         <h4 className="product-discount">
@@ -116,7 +118,9 @@ export const Cart = () => {
                         +
                       </button>
                     </div>
-                    <h3 className="final-price">₹25.00</h3>
+                    <h3 className="final-price">
+                      ₹{quantity * actualPrice(price, discount)}
+                    </h3>
                   </div>
                 )
               )}
@@ -133,7 +137,7 @@ export const Cart = () => {
                     className="coupen"
                     onClick={() => setCoupen((prev) => (prev = !prev))}
                   >
-                    {coupen ? "applied!" : "Apply coupen!"}
+                    {coupen ? "You saved 2%" : "Click here to save 2%!"}
                   </button>
                   <div className="wrapper">
                     <p className="muted">Delivery Charges</p>
@@ -141,7 +145,12 @@ export const Cart = () => {
                   </div>
                   <div className="wrapper">
                     <p className="muted">Total Payable</p>
-                    <h2>₹ {coupen ? cartTotal() - 5 : cartTotal()}</h2>
+                    <h2>
+                      ₹{" "}
+                      {coupen
+                        ? (cartTotal() - (cartTotal() * 2) / 100).toFixed(2)
+                        : cartTotal()}
+                    </h2>
                   </div>
                   <button
                     className="btn-success"

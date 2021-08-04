@@ -25,7 +25,7 @@ export function Navbar() {
       </NavLink>
       <Search />
       <nav className={menu ? null : "d-none"}>
-        <ul>
+        <ul onClick={() => setMenu(false)}>
           <li>
             <NavLink
               to="/cart"
@@ -36,7 +36,9 @@ export function Navbar() {
                 <FiShoppingCart />
               </span>
               cart
-              {user && cartSize !== 0 && <div className="badge">{cartSize}</div>}
+              {user && cartSize !== 0 && (
+                <div className="badge">{cartSize}</div>
+              )}
             </NavLink>
           </li>
           <li>

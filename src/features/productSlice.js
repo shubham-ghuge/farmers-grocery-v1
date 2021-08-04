@@ -69,6 +69,9 @@ const productSlice = createSlice({
         },
         resetCart: (state) => {
             state.cart = []
+        },
+        resetCartSize: () => {
+            state.cartSize = 0;
         }
     },
     extraReducers: {
@@ -112,6 +115,7 @@ const productSlice = createSlice({
             const { productId } = productDetails;
             state.cartMessage = message;
             state.cart.push(productId)
+            state.cartSize = state.cartSize + 1;
             state.products = state.products.map(i => {
                 if (i._id === productId) {
                     i['isInCart'] = true;
@@ -124,7 +128,8 @@ const productSlice = createSlice({
             state.cartMessage = "error while adding product in cart,check your internet connection";
         },
         [removeFromCart.fulfilled]: (state, action) => {
-            const { message, productId } = action.payload
+            const { message, productId } = action.payload;
+            state.cartSize = state.cartSize - 1;
             state.cartMessage = message;
             state.cart = state.cart.filter(i => i.productId !== productId)
             state.products.find(i => {
@@ -164,6 +169,7 @@ const productSlice = createSlice({
             const { message, productId } = action.payload;
             state.message = message;
             state.bag.push(productId)
+            state.bagSize = state.bagSize + 1;
             state.products = state.products.map(i => {
                 if (i._id === productId) {
                     i['isInBag'] = true;
@@ -175,6 +181,7 @@ const productSlice = createSlice({
         [removeFromBag.fulfilled]: (state, action) => {
             const { message, productId } = action.payload;
             state.message = message;
+            state.bagSize = state.bagSize - 1;
             state.bag = state.bag.filter(i => i !== productId)
             state.products = state.products.map(i => {
                 if (i._id === productId) {
@@ -188,5 +195,5 @@ const productSlice = createSlice({
     }
 });
 
-export const { addProductInCart, setMessage, resetCart } = productSlice.actions;
+export const { addProductInCart, setMessage, resetCart, resetCartSize } = productSlice.actions;
 export default productSlice.reducer;

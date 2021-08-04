@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { registerUser, setMessage } from "../features/authSlice";
@@ -29,6 +29,16 @@ function Register() {
       );
     }
   }
+  useEffect(() => {
+    if (message && message.includes("success")) {
+      setUserDetails({
+        email: "",
+        name: "",
+        confirmPassword: "",
+        password: "",
+      });
+    }
+  }, [message]);
 
   return (
     <div className="flex-column auth-form jc-center ai-center">
@@ -113,7 +123,7 @@ function Register() {
         </button>
       </form>
       <p>
-        already have an account?<Link to="/auth">Login</Link>
+        already have an account? <Link to="/auth">Login</Link>
       </p>
     </div>
   );

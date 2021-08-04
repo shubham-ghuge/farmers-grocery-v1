@@ -64,7 +64,7 @@ function Login() {
           className="btn-c-primary"
           onClick={() =>
             setUserDetails({
-              email: "shubhamghuge34@gmail.com",
+              email: "john@gmail.com",
               password: "aaaaaa",
             })
           }
