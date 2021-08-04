@@ -7,10 +7,12 @@
 .carouselContainer {
   transition: all 0.3s ease;
   height: 50vh;
-  width: 100vw;
+  width: 100%;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
 }
 .carouselBody {
+  -webkit-tap-highlight-color: transparent;
   color: #fff;
   font-size: var(--fsz-2);
   flex-direction: column;

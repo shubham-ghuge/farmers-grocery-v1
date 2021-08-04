@@ -1,0 +1,104 @@
+.category-layout {
+  overflow: auto;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+.home-heading {
+  font-size: var(--fsz-2);
+  text-align: center;
+  margin-top: var(--p-7);
+}
+figure {
+  margin: 0;
+}
+.category-card2 {
+  box-sizing: border-box;
+}
+.category-card2:not(:first-child) {
+  margin-left: var(--p-7);
+}
+.category-card2:first-child {
+  margin-left: var(--p-3);
+}
+.category-card2 img {
+  height: 15vh;
+}
+.feature .icon {
+  font-size: 1.4rem;
+  display: block;
+  text-align: center;
+}
+.feat-container {
+  margin: var(--p-5) var(--p-2);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.sticky-10 {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 13%;
+}
+.sticky-20 {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 20%;
+}
+.feat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: #fff;
+  height: 40vh;
+  width: 70vw;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  margin-bottom: var(--p-7);
+  padding: var(--p-4);
+  border-radius: var(--br-2);
+}
+.feat .icon {
+  padding: 0.5em;
+  margin-bottom: var(--p-4);
+  border-radius: var(--br-2);
+  font-size: 2rem;
+  color: var(--c-success-300);
+  background-color: var(--c-success-100);
+}
+@media all and (min-width: 600px) {
+  .sticky-10,.sticky-20{
+    position: static;
+  }
+  .category-layout {
+    overflow: auto;
+    padding-left: 0;
+    justify-content: center;
+  }
+  .category-card2 img{
+    height: 20vh;
+  }
+  .feat-container {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .home-heading {
+    margin-top: 4rem;
+    font-size: var(--fsz-4);
+  }
+  .feat {
+    height: 40vh;
+    width: 35vw;
+    font-size: var(--fsz-1);
+  }
+  .feat-container > * {
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+  }
+  .home-heading {
+    font-size: var(--fsz-3);
+    margin: var(--p-7) var(--p-2) 0;
+  }
+}

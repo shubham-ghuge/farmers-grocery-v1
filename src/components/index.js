@@ -12,4 +12,6 @@ export * from './Address';;
 export * from './UserInfo';
 export * from './Carousel';
 export * from './orderListing';
-export * from './Search'
+export * from './Search';
+export * from './Feature';
+export * from './Footer';

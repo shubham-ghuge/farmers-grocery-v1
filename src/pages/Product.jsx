@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { MdWhatshot } from "react-icons/md";
 import {
   FiHome,
@@ -10,6 +10,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addInCart } from "../features/productSlice";
+import { Feature } from "../components";
 
 export const Product = () => {
   const { productId } = useParams();
@@ -26,11 +27,12 @@ export const Product = () => {
     discount,
     isInCart,
     farmerId,
-  } = products.find((item) => item._id === productId);
+  } = (products.length !== 0 &&
+    products.find((item) => item._id === productId)) || { price: 0 };
 
   return (
     <div className="extra-margin">
-      {loading ? (
+      {products.length === 0 ? (
         "loading..."
       ) : (
         <div>
@@ -91,66 +93,34 @@ export const Product = () => {
               <div className="features">
                 <h3>Four reason to shop with us?</h3>
                 <div className="features-layout">
-                  <div className="feature">
-                    <span className="avatar-sm-i-primary">
-                      <span
-                        style={{
-                          fontSize: "1.4rem",
-                          display: "block",
-                          textAlign: "center",
-                        }}
-                      >
-                        <FiHome />
-                      </span>
-                    </span>
-                    <p className="muted">Fresh Products</p>
-                    <p>Directly from farm to you</p>
-                  </div>
-                  <div className="feature">
-                    <span className="avatar-sm-i-primary">
-                      <span
-                        style={{
-                          fontSize: "1.4rem",
-                          display: "block",
-                          textAlign: "center",
-                        }}
-                      >
-                        <FiClock />
-                      </span>
-                    </span>
-                    <p className="muted">On Time Guarantee</p>
-                    <p>Items delivered at the promised time</p>
-                  </div>
-                  <div className="feature">
-                    <span className="avatar-sm-i-primary">
-                      <span
-                        style={{
-                          fontSize: "1.4rem",
-                          display: "block",
-                          textAlign: "center",
-                        }}
-                      >
-                        <FiTruck />
-                      </span>
-                    </span>
-                    <p className="muted">Free Delivery</p>
-                    <p>Eligible an above ₹750</p>
-                  </div>
-                  <div className="feature">
-                    <span className="avatar-sm-i-primary">
-                      <span
-                        style={{
-                          fontSize: "1.4rem",
-                          display: "block",
-                          textAlign: "center",
-                        }}
-                      >
-                        <FiCheckCircle />
-                      </span>
-                    </span>
-                    <p className="muted">Best Quality</p>
-                    <p>10,000+ grocery & household products</p>
-                  </div>
+                  <Feature
+                    details={{
+                      heading: "Fresh Products",
+                      text: "Directly from farm to you",
+                    }}
+                    icon={<FiHome />}
+                  />
+                  <Feature
+                    details={{
+                      heading: "On Time Guarantee",
+                      text: "Items delivered at the promised time",
+                    }}
+                    icon={<FiClock />}
+                  />
+                  <Feature
+                    details={{
+                      heading: "Free Delivery",
+                      text: "Eligible an above ₹7500",
+                    }}
+                    icon={<FiTruck />}
+                  />
+                  <Feature
+                    details={{
+                      heading: "Best Quality",
+                      text: "10,000+ grocery & household products",
+                    }}
+                    icon={<FiCheckCircle />}
+                  />
                 </div>
               </div>
             </div>

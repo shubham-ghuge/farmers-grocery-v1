@@ -9,7 +9,7 @@ import { Search } from "./Search";
 export function Navbar() {
   const [menu, setMenu] = useState(false);
   const { user } = useSelector((state) => state.auth);
-  const { cart } = useSelector((state) => state.product);
+  const { cartSize, bagSize } = useSelector((state) => state.product);
 
   useEffect(() => {
     if (window.innerWidth >= 600) {
@@ -36,7 +36,7 @@ export function Navbar() {
                 <FiShoppingCart />
               </span>
               cart
-              {cart.length !== 0 && <div className="badge">{cart.length}</div>}
+              {user && cartSize !== 0 && <div className="badge">{cartSize}</div>}
             </NavLink>
           </li>
           <li>
@@ -49,6 +49,7 @@ export function Navbar() {
                 <FiShoppingBag />
               </span>
               bag
+              {user && bagSize !== 0 && <div className="badge">{bagSize}</div>}
             </NavLink>
           </li>
           <li>

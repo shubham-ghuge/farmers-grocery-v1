@@ -49,6 +49,8 @@ const initialState = {
     products: [],
     cart: [],
     bag: [],
+    cartSize: 0,
+    bagSize: 0,
     loading: false,
     message: null,
     cartMessage: null,
@@ -84,6 +86,7 @@ const productSlice = createSlice({
         [fetchCartData.fulfilled]: (state, action) => {
             const { products } = action.payload.response;
             state.cart = products;
+            state.cartSize = products.length;
             function getProductQuantity(id) {
                 const product = products.find(i => i.productId === id)
                 return product.quantity
@@ -148,6 +151,7 @@ const productSlice = createSlice({
         [fetchBag.fulfilled]: (state, action) => {
             const { products } = action.payload.response;
             state.bag = products;
+            state.bagSize = products.length;
             state.products = state.products.map(product => {
                 if (products.includes(product._id)) {
                     product['isInBag'] = true;
