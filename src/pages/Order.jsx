@@ -53,7 +53,7 @@ function Order() {
                       products.map((i) => {
                         const { _id, price, discount, imgUrl, name } =
                           i !== undefined && getProductDetails(i.productId);
-                        if (!i.hasOwnProperty("productId")) {
+                        if (! name) {
                           return <></>;
                         }
                         return (
@@ -71,8 +71,8 @@ function Order() {
                                 <h3 className="product-title">{name}</h3>
                                 <h4> Quantity: {i.quantity}</h4>
                                 <h4 className="product-price">
-                                  Price: ₹ 
-                                  { (price - (price * discount) / 100).toFixed(
+                                  Price: ₹
+                                  {(price - (price * discount) / 100).toFixed(
                                     2
                                   )}
                                   <span className="strike">₹ {price}.00</span>

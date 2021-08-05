@@ -129,7 +129,10 @@ button {
   width: 95%;
 }
 @media all and (min-width: 600px) {
-  .order{
+  .products{
+    width: 75vw;
+  }
+  .order {
     width: 70vw;
   }
   .nav-adjust {
@@ -323,7 +326,63 @@ button {
   height: 100px;
   object-fit: contain;
 }
+.filter-btn {
+  position: fixed;
+  bottom: 0%;
+  background-color: #fff;
+  border: 0;
+  width: 70%;
+  text-transform: capitalize;
+  padding: var(--p-3);
+  border-radius: var(--br-2);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: var(--z-2);
+}
+.filters {
+  position: fixed;
+  bottom: 7%;
+  background-color: #fff;
+  z-index: var(--z-1);
+  width: 95%;
+  margin: 0 auto;
+  left: 0%;
+  right: 0%;
+  box-sizing: border-box;
+  padding-top: var(--p-2);
+  animation: open 0.3s ease;
+}
+@keyframes open {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.filters .wrapper {
+  padding: 0 var(--p-4) var(--p-2);
+}
 @media all and (min-width: 600px) {
+  .filter-btn {
+    display: none;
+  }
+  .filters {
+    position: relative;
+    width: 20vw;
+    margin: unset;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    padding: var(--p-4);
+  }
+  .flex-sm-column{
+    flex-direction: column;
+  }
+  .filters .wrapper {
+    width: 100%;
+  }
   .category-card img {
     height: 130px;
   }

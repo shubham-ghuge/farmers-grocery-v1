@@ -135,10 +135,10 @@ const productSlice = createSlice({
             });
         },
         [fetchCartData.rejected]: (state) => {
-            state.message = "error while fetching cart products,check your internet connection";
+            state.message = "error while fetching cart products, login again";
         },
         [fetchBag.rejected]: (state) => {
-            state.message = "error while fetching cart products,check your internet connection";
+            state.message = "error while fetching cart products, login again";
         },
         [addInCart.fulfilled]: (state, action) => {
             const { message, productDetails } = action.payload;

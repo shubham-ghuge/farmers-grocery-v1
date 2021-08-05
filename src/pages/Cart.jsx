@@ -20,7 +20,6 @@ export const Cart = () => {
   useEffect(() => {
     dispatch(fetchCartData());
   }, []);
-
   const productsInCart = products.filter((item) =>
     cart.find((i) => item._id === i.productId)
   );
@@ -119,7 +118,7 @@ export const Cart = () => {
                       </button>
                     </div>
                     <h3 className="final-price">
-                      ₹{quantity * actualPrice(price, discount)}
+                      ₹{(quantity * actualPrice(price, discount)).toFixed(2)}
                     </h3>
                   </div>
                 )
