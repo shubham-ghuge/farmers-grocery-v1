@@ -119,7 +119,7 @@ function Register() {
             <span className="c-danger text-sm">password doesn't match</span>
           )}
         <button className="btn-primary">
-          {loading ? "signing in..." : "register"}
+          {loading ? "Signing in..." : "Register"}
         </button>
       </form>
       <p>

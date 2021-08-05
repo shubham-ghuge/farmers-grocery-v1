@@ -57,8 +57,8 @@ function Login() {
             required
           />
         </label>
-        <button className="btn-primary">
-          {loading ? "loggin in" : "login"}
+        <button className="btn-primary d-flex jc-center">
+          {loading ? <>Loggin in...</> : "Login"}
         </button>
         <button
           className="btn-c-primary"
@@ -69,7 +69,7 @@ function Login() {
             })
           }
         >
-          Demo Login
+          Login as a guest
         </button>
       </form>
       <p>

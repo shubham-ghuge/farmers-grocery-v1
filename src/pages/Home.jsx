@@ -37,7 +37,7 @@ export const Home = () => {
         ))}
       </div>
       <div className="my-5">
-        <h2 className="home-heading sticky-10">Why Choose us</h2>
+        <h2 className="home-heading sticky-10">Why Choose us?</h2>
         <div className="feat-container">
           <div className="feat sticky-20">
             <FiHome className="icon" />
@@ -47,11 +47,11 @@ export const Home = () => {
           <div className="feat sticky-20">
             <FiCheckCircle className="icon" />
             <h3>Best Quality</h3>
-            <p>10,000+ grocery & household products</p>
+            <p>That you can trust</p>
           </div>
           <div className="feat sticky-20">
             <FiClock className="icon" />
-            <h3>On Time Guarantee</h3>
+            <h3>On Time Delivery</h3>
             <p>Items delivered at the promised time</p>
           </div>
         </div>

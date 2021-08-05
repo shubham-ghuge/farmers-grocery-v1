@@ -43,14 +43,13 @@ export const Product = () => {
             Back to Products
           </button>
           <div className="product-layout">
-            <img src={imgUrl} alt="test" />
+            <img src={imgUrl} className="bdrs-3" alt="test" />
             <span className="badge-rect-danger">{discount}% OFF</span>
 
             <div className="product">
               <div className="wrapper">
                 <h3 className="product-heading">{name}</h3>
                 <h4 className="product-description">{description}</h4>
-                <h5 className="product-seller">by - farmerName</h5>
                 <p className="product-discount">
                   <span style={{ fontSize: "1.25rem", verticalAlign: "sub" }}>
                     <MdWhatshot />

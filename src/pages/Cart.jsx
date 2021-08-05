@@ -31,6 +31,21 @@ export const Cart = () => {
       dispatch(updateInCart({ productId: id, quantity, farmerId }));
     }
   }
+  function debounceUpadate(cb, delay) {
+    let flag = true;
+    return function () {
+      if (flag) {
+        let context = this,
+          args = arguments;
+        cb.apply(context, args);
+        setTimeout(() => {
+          flag = true;
+        }, delay);
+        flag = false;
+      }
+    };
+  }
+  const optimizedUpdateQuantity = debounceUpadate(updateQuantityHandler, 1000);
 
   const cartTotal = () => {
     return productsInCart
@@ -102,7 +117,7 @@ export const Cart = () => {
                       <button
                         className="btn-outline-danger"
                         onClick={() =>
-                          updateQuantityHandler(quantity - 1, _id, farmerId)
+                          optimizedUpdateQuantity(quantity - 1, _id, farmerId)
                         }
                       >
                         -
@@ -111,7 +126,7 @@ export const Cart = () => {
                       <button
                         className="btn-outline-primary"
                         onClick={() =>
-                          updateQuantityHandler(quantity + 1, _id, farmerId)
+                          optimizedUpdateQuantity(quantity + 1, _id, farmerId)
                         }
                       >
                         +

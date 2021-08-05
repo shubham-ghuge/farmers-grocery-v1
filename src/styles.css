@@ -24,9 +24,7 @@ button {
 }
 .alert {
   position: fixed;
-  margin: 0 auto;
-  top: 50%;
-  left: 0%;
+  bottom: 10%;
   right: 0%;
   z-index: var(--z-2);
 }
@@ -106,6 +104,7 @@ button {
     transform: translateY(-50%);
   }
 }
+
 .hero {
   margin: 0;
   cursor: pointer;
@@ -129,7 +128,7 @@ button {
   width: 95%;
 }
 @media all and (min-width: 600px) {
-  .products{
+  .products {
     width: 75vw;
   }
   .order {
@@ -377,7 +376,7 @@ button {
     margin-left: 1rem;
     padding: var(--p-4);
   }
-  .flex-sm-column{
+  .flex-sm-column {
     flex-direction: column;
   }
   .filters .wrapper {

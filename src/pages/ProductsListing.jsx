@@ -82,7 +82,7 @@ export const ProductsListing = () => {
           <div className="wrapper">
             <div className="mr-2 mb-2">
               <p className="fsz-1 fw-500 text-capitalize">Sort by Price</p>
-              <div className="d-flex ai-center">
+              <div className="d-flex flex-sm-column">
                 <label htmlFor="high">
                   <input
                     type="radio"
