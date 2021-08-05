@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, GroceryCard } from "../components";
+import { Alert, GroceryCard, Jumbotron } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearFilters,
@@ -15,7 +15,7 @@ export const ProductsListing = () => {
   const {
     products,
     message,
-    initialData,
+    filteredData,
     categories,
     filterBySort,
     filterCategoryData,
@@ -49,9 +49,10 @@ export const ProductsListing = () => {
 
   useEffect(() => {
     if (filterCategoryData.length !== 0) {
-      dispatch(setProducts(filterProductsByCategory(initialData)));
+      const data = products;
+      dispatch(setProducts(filterProductsByCategory(data)));
     } else {
-      dispatch(setProducts(initialData));
+      dispatch(setProducts([]));
     }
   }, [filterCategoryData]);
 
@@ -145,10 +146,14 @@ export const ProductsListing = () => {
             onClose={() => dispatch(setMessage("message"))}
           />
         )}
-        {products.length === 0 ? (
-          <h2>No Products</h2>
-        ) : (
+        {filteredData.length === 0 && filterCategoryData.length === 0 ? (
           products.map((item) => <GroceryCard product={item} key={item._id} />)
+        ) : filteredData.length === 0 ? (
+          <Jumbotron onlyText="no products available" />
+        ) : (
+          filteredData.map((item) => (
+            <GroceryCard product={item} key={item._id} />
+          ))
         )}
       </div>
     </div>

@@ -61,7 +61,7 @@ const initialState = {
     message: null,
     cartMessage: null,
     wishlistMessage: null,
-    initialData: [],
+    filteredData: [],
     filterBySort: "",
     filterCategoryData: []
 }
@@ -86,14 +86,13 @@ const productSlice = createSlice({
             state.filterBySort = action.payload
         },
         setProducts: (state, action) => {
-            state.products = action.payload;
+            state.filteredData = action.payload;
         },
         filterProducts: (state, action) => {
             const { id, status } = action.payload;
             state.filterCategoryData = status ? [...state.filterCategoryData, id] : state.filterCategoryData.filter(i => i !== id)
         },
         clearFilters: (state) => {
-            state.products = state.initialData;
             state.filterBySort = "";
             state.filterCategoryData = [];
         }
@@ -105,7 +104,6 @@ const productSlice = createSlice({
         [fetchProducts.fulfilled]: (state, action) => {
             const { response } = action.payload;
             state.products = response;
-            state.initialData = response;
             state.loading = false;
         },
         [fetchProducts.rejected]: (state) => {
@@ -125,7 +123,7 @@ const productSlice = createSlice({
                 return product.quantity
             }
             const productInCart = (product) => products.find(i => i.productId === product._id)
-            state.products = state.products.map(product => {
+            const updatedData = state.products.map(product => {
                 if (productInCart(product)) {
                     product['isInCart'] = true;
                     product['quantity'] = getProductQuantity(product._id)
@@ -133,6 +131,7 @@ const productSlice = createSlice({
                 }
                 return product;
             });
+            state.products = updatedData;
         },
         [fetchCartData.rejected]: (state) => {
             state.message = "error while fetching cart products, login again";
