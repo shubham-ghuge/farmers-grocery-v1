@@ -9,7 +9,6 @@ import {
   setMessage,
 } from "../features/productSlice";
 import { Alert } from "./Alert";
-import { IoCartOutline, IoCartSharp } from "react-icons/io5";
 
 export function GroceryCard({ product }) {
   const { userLoginStatus } = useSelector((state) => state.auth);
@@ -33,7 +32,6 @@ export function GroceryCard({ product }) {
       setCartLoading(false);
     }
   }, [cartMessage]);
-
   return (
     <>
       <div className={"grocery-card"}>

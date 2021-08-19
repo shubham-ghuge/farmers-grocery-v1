@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loginUser, setMessage } from "../features/authSlice";
 import { Alert } from "./Alert";
 
 function Login() {
   const [userDetails, setUserDetails] = useState({ email: "", password: "" });
+  const { state } = useLocation();
   let navigate = useNavigate();
   const { loading, message, userLoginStatus } = useSelector(
     (state) => state.auth
@@ -14,7 +15,7 @@ function Login() {
 
   useEffect(() => {
     if (userLoginStatus) {
-      navigate("/cart");
+      navigate(state?.from ? state.from : "/profile");
     }
   }, [userLoginStatus]);
 
