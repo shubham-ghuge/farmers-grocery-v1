@@ -1,15 +1,14 @@
 import React from "react";
 import { FcShop } from "react-icons/fc";
+import { Link } from "react-router-dom";
 export const NotFound = () => {
   return (
-    <>
-      <span
-        className="d-flex jc-center"
-        style={{ fontSize: "15rem", lineHeight: "1" }}
-      >
+    <div className="flex-column h-70 ai-center jc-center">
+      <span style={{ fontSize: "15rem", lineHeight: "0" }}>
         <FcShop />
       </span>
-      <h1 className="text-center">404 Not Found</h1>
-    </>
+      <h1 className="text-center">Page Not Found</h1>
+      <Link to="/">Return to Home</Link>
+    </div>
   );
 };

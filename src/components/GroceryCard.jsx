@@ -41,11 +41,15 @@ export function GroceryCard({ product }) {
           </div>
         </Link>
         <span
-          className={product.isInBag ? "icon-active" : "icon"}
+          className={
+            userLoginStatus && product.isInBag ? "icon-active" : "icon"
+          }
           onClick={() =>
-            userLoginStatus && product.isInBag
-              ? dispatch(removeFromBag(product._id))
-              : dispatch(addInBag(product._id))
+            userLoginStatus
+              ? product.isInBag
+                ? dispatch(removeFromBag(product._id))
+                : dispatch(addInBag(product._id))
+              : setShowAlert(true)
           }
         >
           <FiShoppingBag />
@@ -68,7 +72,9 @@ export function GroceryCard({ product }) {
           </div>
         </div>
         <button
-          className={product.isInCart ? "card-cta-active" : "card-cta"}
+          className={
+            userLoginStatus && product.isInCart ? "card-cta-active" : "card-cta"
+          }
           onClick={() =>
             userLoginStatus
               ? addToCartHandler(
@@ -81,7 +87,7 @@ export function GroceryCard({ product }) {
         >
           {cartLoading
             ? "adding..."
-            : product.isInCart
+            : userLoginStatus && product.isInCart
             ? "Go to Cart"
             : "Add To Cart"}
         </button>
@@ -97,7 +103,7 @@ export function GroceryCard({ product }) {
 
       {showAlert && (
         <Alert
-          message={"Please login to add product in cart"}
+          message={`Please login to add product in cart`}
           onClose={() => setShowAlert(false)}
         />
       )}

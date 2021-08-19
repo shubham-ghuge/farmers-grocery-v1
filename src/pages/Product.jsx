@@ -7,7 +7,7 @@ import {
   FiCheckCircle,
   FiShoppingCart,
 } from "react-icons/fi";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addInCart } from "../features/productSlice";
 import { Feature } from "../components";
@@ -17,7 +17,7 @@ export const Product = () => {
   const dispatch = useDispatch();
   let navigation = useNavigate();
   const { userLoginStatus } = useSelector((state) => state.auth);
-  const { products, loading } = useSelector((state) => state.product);
+  const { products } = useSelector((state) => state.product);
   const {
     _id,
     name,
@@ -29,7 +29,9 @@ export const Product = () => {
     farmerId,
   } = (products.length !== 0 &&
     products.find((item) => item._id === productId)) || { price: 0 };
-
+  if (products.length !== 0 && !name) {
+    return <Navigate replace to="/notfound" />;
+  }
   return (
     <div className="extra-margin">
       {products.length === 0 ? (
@@ -82,7 +84,7 @@ export const Product = () => {
                     <span className="icon">
                       <FiShoppingCart />
                     </span>
-                    {isInCart ? "Go To Cart" : "Add To Cart"}
+                    {userLoginStatus && isInCart ? "Go To Cart" : "Add To Cart"}
                   </button>
                   <span className="taxes d-sm-none d-block">
                     (inclusive all taxes)
