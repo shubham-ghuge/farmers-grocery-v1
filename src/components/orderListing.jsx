@@ -50,7 +50,7 @@ function OrderListing() {
                 </div>
               );
             }
-          )}
+          ).reverse()}
         </div>
       )}
     </div>

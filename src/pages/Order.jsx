@@ -54,7 +54,7 @@ function Order() {
                         const { _id, price, discount, imgUrl, name } =
                           i !== undefined && getProductDetails(i.productId);
                         if (! name) {
-                          return <></>;
+                          return <>Product Not Found.</>;
                         }
                         return (
                           <div className="w-sm-20" key={_id}>
